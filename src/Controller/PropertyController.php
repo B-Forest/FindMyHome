@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Property;
+use App\Entity\Picture;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
+use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +25,12 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/new', name: 'app_property_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PropertyRepository $propertyRepository): Response
+    public function new(Request $request,
+                        PropertyRepository $propertyRepository,
+                        EntityManagerInterface $entityManager,
+                        FileUploader $fileUploader
+
+    ): Response
     {
         $property = new Property();
         $property->setOwner($this->getUser());
@@ -31,8 +39,16 @@ class PropertyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            foreach ($property->getPictures() as $picture) {
-                $picture->setProperty($property);
+            // Uploader l'image
+            $images = $form->get('pictures')->getData();
+            dump($images);
+            foreach ($images as $image) {
+                $fileUploader->setTargetDirectory($this->getParameter('property_directory'));
+                $fileName = $fileUploader->upload($image);
+                $picture = new Picture();
+                $picture->setUrl($fileName);
+                $entityManager->persist($picture);
+                $property->addPicture($picture);
             }
 
             $propertyRepository->save($property, true);

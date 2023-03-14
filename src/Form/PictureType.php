@@ -3,19 +3,20 @@
 namespace App\Form;
 
 
-use App\Entity\Pictures;
+use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class PicturesType extends AbstractType
+class PictureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('url',FileType::class, [
+                'multiple' => true,
                 'attr' => ['accept' => 'image/*'],
                 'mapped' => false,
                 'required' => false,
@@ -30,7 +31,7 @@ class PicturesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Pictures::class,
+            'data_class' => Picture::class,
         ]);
     }
 }

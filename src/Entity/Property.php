@@ -43,7 +43,7 @@ class Property
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: Visit::class)]
     private Collection $visits;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Pictures::class)]
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Picture::class)]
     private Collection $pictures;
 
     #[ORM\ManyToMany(targetEntity: Favorite::class, mappedBy: 'property')]
@@ -185,14 +185,14 @@ class Property
     }
 
     /**
-     * @return Collection<int, Pictures>
+     * @return Collection<int, Picture>
      */
     public function getPictures(): Collection
     {
         return $this->pictures;
     }
 
-    public function addPicture(Pictures $picture): self
+    public function addPicture(Picture $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
@@ -202,7 +202,7 @@ class Property
         return $this;
     }
 
-    public function removePicture(Pictures $picture): self
+    public function removePicture(Picture $picture): self
     {
         if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)

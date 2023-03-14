@@ -6,6 +6,7 @@ use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,6 +20,7 @@ class PropertyType extends AbstractType
             ->add('price')
             ->add('surface')
             ->add('city')
+            ->add('zipCode')
             ->add('address')
             ->add('category', EntityType::class, [
                 'class' => 'App\Entity\Category',
@@ -30,12 +32,11 @@ class PropertyType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
             ])
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => PicturesType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => false
+            ->add('pictures', FileType::class, [
+                'multiple' => true,
+                'attr' => ['accept' => 'image/*'],
+                'mapped' => false,
+                'required' => false,
             ])
         ;
     }
