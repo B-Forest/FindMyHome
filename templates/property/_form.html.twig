@@ -1,0 +1,61 @@
+{{ form_start(propertyForm) }}
+    {{ form_widget(propertyForm) }}
+<h3>Images</h3>
+<ul class="images">
+    {% for image in propertyForm.images %}
+        <li>
+            {{ form_widget(image) }}
+        </li>
+    {% endfor %}
+</ul>
+
+    <button type="button" class="add_item_link" data-collection-holder-class="images">Add an image</button>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<script>
+    const addFormToCollection = (e) => {
+        const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+        const item = document.createElement('li');
+
+        item.innerHTML = collectionHolder
+            .dataset
+            .prototype
+            .replace(
+                /__name__/g,
+                collectionHolder.dataset.index
+            );
+
+        collectionHolder.appendChild(item);
+
+        collectionHolder.dataset.index++;
+
+        addTagFormDeleteLink(item);
+    };
+
+    const addTagFormDeleteLink = (item) => {
+        const removeFormButton = document.createElement('button');
+        removeFormButton.innerText = 'Delete this participant';
+
+        item.append(removeFormButton);
+
+        removeFormButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            // remove the li for the tag form
+            item.remove();
+        });
+    }
+
+    document
+        .querySelectorAll('.add_item_link')
+        .forEach(btn => {
+            btn.addEventListener("click", addFormToCollection)
+        });
+    document
+        .querySelectorAll('ul.images li')
+        .forEach((tag) => {
+            addTagFormDeleteLink(tag)
+        })
+</script>
+{{ form_end(form) }}

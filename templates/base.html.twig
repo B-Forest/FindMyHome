@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}FindMyHome{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <header class="bg-cyan-200 py-8">
+        <section>
+            <nav class="grid grid-cols-3">
+                <ul class=" col-start-2 grid grid-cols-3">
+                    <li><a href="{{ path('homepage') }}" class="text-lg text-white text-center">Home</a></li>
+                    <li><a href="{{ path('about') }}" class="text-lg text-white text-center">About</a></li>
+                    <li><a href="{{ path('app_property_index') }}" class="text-lg text-white text-center"> Property</a> </li>
+                </ul>
+                <ul class="grid grid-cols-4">
+                    {% if app.user %}
+                        <li class="col-start-2 col-span-2 text-center"><a href="#" class="text-lg text-white">{{ app.user.fullName }}</a></li>
+                        <li><a href="{{ path('app_logout') }}" class="text-lg text-white">Logout</a></li>
+                    {% else %}
+                        <li class="col-start-2"><a href="{{ path('app_login') }}" class="text-lg text-white text-center">Login</a></li>
+                        <li><a href="{{ path('app_register') }}" class="text-lg text-white text-center">Register</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </section>
+    </header>
+        {% block body %}{% endblock %}
+    </body>
+</html>
