@@ -36,6 +36,7 @@ class RegistrationController extends AbstractController
 
             $image = $form->get('profilePicture')->getData();
             if ($image) {
+                $fileUploader->setTargetDirectory($this->getParameter('pp_directory'));
                 $fileName = $fileUploader->upload($image);
                 $user->setProfilePicture($fileName);
             }

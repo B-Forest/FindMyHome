@@ -23,16 +23,12 @@ class Visit
     #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
 
-    #[ORM\ManyToOne(inversedBy: 'visits')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $promoteur = null;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'visits')]
-    private Collection $visitor;
+    private Collection $visitors;
 
     public function __construct()
     {
-        $this->visitor = new ArrayCollection();
+        $this->visitors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,30 +60,18 @@ class Visit
         return $this;
     }
 
-    public function getPromoteur(): ?User
-    {
-        return $this->promoteur;
-    }
-
-    public function setPromoteur(?User $promoteur): self
-    {
-        $this->promoteur = $promoteur;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, User>
      */
-    public function getVisitor(): Collection
+    public function getVisitors(): Collection
     {
-        return $this->visitor;
+        return $this->visitors;
     }
 
     public function addVisitor(User $visitor): self
     {
-        if (!$this->visitor->contains($visitor)) {
-            $this->visitor->add($visitor);
+        if (!$this->visitors->contains($visitor)) {
+            $this->visitors->add($visitor);
         }
 
         return $this;
@@ -95,7 +79,7 @@ class Visit
 
     public function removeVisitor(User $visitor): self
     {
-        $this->visitor->removeElement($visitor);
+        $this->visitors->removeElement($visitor);
 
         return $this;
     }

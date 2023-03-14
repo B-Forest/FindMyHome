@@ -16,7 +16,7 @@ class Pictures
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
 
-    #[ORM\ManyToOne(inversedBy: 'picture')]
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Property $property = null;
 
     public function getId(): ?int

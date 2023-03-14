@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Property::class)]
     private Collection $properties;
 
-    #[ORM\OneToMany(mappedBy: 'promoteur', targetEntity: Visit::class)]
+    #[ORM\OneToMany(mappedBy: 'visitors', targetEntity: Visit::class)]
     private Collection $visits;
 
     public function __construct()
@@ -216,7 +216,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->visits->contains($visit)) {
             $this->visits->add($visit);
-            $visit->setPromoteur($this);
+            $visit->addVisitor($this);
         }
 
         return $this;
@@ -226,8 +226,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->visits->removeElement($visit)) {
             // set the owning side to null (unless already changed)
-            if ($visit->getPromoteur() === $this) {
-                $visit->setPromoteur(null);
+            if ($visit->getVisitors()->contains($this)) {
+                $visit->removeVisitor($this);
             }
         }
 

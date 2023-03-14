@@ -19,10 +19,12 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
         $firsthouse->setSurface(100);
         $firsthouse->setCity('Rennes');
         $firsthouse->setAddress('1 rue de la soif');
+        $firsthouse->setZipcode('35000');
         $firsthouse->setOwner($this->getReference('user-julick'));
         $firsthouse->setCategory($this->getReference('category-t3'));
         $firsthouse->setPayment($this->getReference('payment-mensuel'));
         $firsthouse->addPicture($this->getReference('picture-1'));
+        $firsthouse->addPicture($this->getReference('picture-2'));
         $manager->persist($firsthouse);
         $this->setReference('maison-1', $firsthouse);
 
