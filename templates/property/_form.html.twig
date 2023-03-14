@@ -1,15 +1,21 @@
 {{ form_start(propertyForm) }}
-    {{ form_widget(propertyForm) }}
+    {{ form_row(propertyForm.name) }}
+    {{ form_row(propertyForm.description) }}
+    {{ form_row(propertyForm.price) }}
+    {{ form_row(propertyForm.surface) }}
+    {{ form_row(propertyForm.city) }}
+    {{ form_row(propertyForm.address) }}
+    {{ form_row(propertyForm.category) }}
+    {{ form_row(propertyForm.payment) }}
 <h3>Images</h3>
 <ul class="images">
-    {% for image in propertyForm.images %}
+    {% for picture in propertyForm.pictures %}
         <li>
-            {{ form_widget(image) }}
+            {{ form_row(picture.url) }}
         </li>
     {% endfor %}
 </ul>
-
-    <button type="button" class="add_item_link" data-collection-holder-class="images">Add an image</button>
+    <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a picture</button>
 
     <button class="btn">{{ button_label|default('Save') }}</button>
 
@@ -58,4 +64,4 @@
             addTagFormDeleteLink(tag)
         })
 </script>
-{{ form_end(form) }}
+{{ form_end(propertyForm) }}

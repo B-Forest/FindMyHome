@@ -30,6 +30,11 @@ class PropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($property->getPictures() as $picture) {
+                $picture->setProperty($property);
+            }
+
             $propertyRepository->save($property, true);
 
             return $this->redirectToRoute('app_property_index', [], Response::HTTP_SEE_OTHER);

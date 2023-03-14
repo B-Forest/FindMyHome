@@ -43,8 +43,8 @@ class Property
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: Visit::class)]
     private Collection $visits;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Image::class)]
-    private Collection $picture;
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Pictures::class)]
+    private Collection $pictures;
 
     #[ORM\ManyToMany(targetEntity: Favorite::class, mappedBy: 'property')]
     private Collection $favorites;
@@ -58,7 +58,7 @@ class Property
     public function __construct()
     {
         $this->visits = new ArrayCollection();
-        $this->picture = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
         $this->favorites = new ArrayCollection();
     }
 
@@ -182,26 +182,26 @@ class Property
     }
 
     /**
-     * @return Collection<int, Image>
+     * @return Collection<int, Pictures>
      */
-    public function getPicture(): Collection
+    public function getPictures(): Collection
     {
-        return $this->picture;
+        return $this->pictures;
     }
 
-    public function addPicture(Image $picture): self
+    public function addPicture(Pictures $picture): self
     {
-        if (!$this->picture->contains($picture)) {
-            $this->picture->add($picture);
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
             $picture->setProperty($this);
         }
 
         return $this;
     }
 
-    public function removePicture(Image $picture): self
+    public function removePicture(Pictures $picture): self
     {
-        if ($this->picture->removeElement($picture)) {
+        if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)
             if ($picture->getProperty() === $this) {
                 $picture->setProperty(null);

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,6 +29,12 @@ class PropertyType extends AbstractType
                 'class' => 'App\Entity\Payment',
                 'choice_label' => 'name',
                 'multiple' => false,
+            ])
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PicturesType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
         ;
     }

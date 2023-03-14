@@ -22,6 +22,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
         $firsthouse->setOwner($this->getReference('user-julick'));
         $firsthouse->setCategory($this->getReference('category-t3'));
         $firsthouse->setPayment($this->getReference('payment-mensuel'));
+        $firsthouse->addPicture($this->getReference('picture-1'));
         $manager->persist($firsthouse);
         $this->setReference('maison-1', $firsthouse);
 
