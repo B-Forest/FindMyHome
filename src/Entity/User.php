@@ -47,13 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Property::class)]
     private Collection $properties;
 
-    #[ORM\OneToMany(mappedBy: 'visitors', targetEntity: Visit::class)]
-    private Collection $visits;
+    #[ORM\ManyToMany(targetEntity: Visit::class, inversedBy: 'users')]
+    private Collection $visit;
 
     public function __construct()
     {
         $this->properties = new ArrayCollection();
         $this->visits = new ArrayCollection();
+        $this->visit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,20 +204,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+
+    public function getFullName(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
 
     /**
      * @return Collection<int, Visit>
      */
-    public function getVisits(): Collection
+    public function getVisit(): Collection
     {
-        return $this->visits;
+        return $this->visit;
     }
 
     public function addVisit(Visit $visit): self
     {
-        if (!$this->visits->contains($visit)) {
-            $this->visits->add($visit);
-            $visit->addVisitor($this);
+        if (!$this->visit->contains($visit)) {
+            $this->visit->add($visit);
         }
 
         return $this;
@@ -224,18 +230,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeVisit(Visit $visit): self
     {
-        if ($this->visits->removeElement($visit)) {
-            // set the owning side to null (unless already changed)
-            if ($visit->getVisitors()->contains($this)) {
-                $visit->removeVisitor($this);
-            }
-        }
+        $this->visit->removeElement($visit);
 
         return $this;
-    }
-
-    public function getFullName(): string
-    {
-        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 }

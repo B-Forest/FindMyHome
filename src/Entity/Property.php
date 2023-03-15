@@ -276,4 +276,14 @@ class Property
 
         return $this;
     }
+
+    public function getHalfAddress(): string
+    {
+        return $this->getCity() . ' , ' . $this->getZipcode();
+    }
+
+    public function getFullAddress(): string
+    {
+        return $this->getAddress() . ' , ' .$this->getCity() . ' , ' . $this->getZipcode();
+    }
 }

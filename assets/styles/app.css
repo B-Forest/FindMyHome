@@ -6,15 +6,27 @@ section {
     @apply px-8 lg:px-36;
 }
 
+h1 {
+    @apply text-6xl font-bold text-gray-800;
+}
+
+h2 {
+    @apply text-4xl font-bold text-gray-800;
+}
+
+h3 {
+    @apply text-2xl font-bold text-gray-800;
+}
+
 #carrousel {
-    @apply w-[800px] h-[400px]  border-solid shadow-xl relative;
+    @apply w-full h-[400px]  border-solid shadow-xl relative;
 }
 
 #container{
-    @apply w-[800px] h-[400px];
+    @apply w-full h-[400px];
 }
 .photo{
-    @apply w-[800px] h-[400px] m-0 inline-block bg-cover;
+    @apply w-full h-[400px] m-0 inline-block bg-cover;
 }
 
 .bouton{
@@ -28,11 +40,11 @@ section {
     @apply right-[0] opacity-40  rotate-0;
 }
 
-#g:hover{
+#prev:hover{
     @apply  opacity-100 rotate-180 scale-110;
 }
 
-#d:hover{
+#next:hover{
     @apply  opacity-100  rotate-0 scale-110;
 }
 

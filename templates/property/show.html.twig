@@ -4,63 +4,106 @@
 
 {% block body %}
     <section>
-    <h2>{{ property.name }}</h2>
-
-        <div id="carrousel">
-            <div id="container" class="flex items-center justify-center">
-                {% for picture in property.pictures %}
-                    <img src="{{ asset(property_url ~ '/' ~ picture.url) }}" alt="picture" class="hidden" width="100" height="100">
-                {% endfor %}
+        <h2 class="my-8">{{ property.name }}</h2>
+        <div class="grid grid-cols-4 mb-12">
+            {% if property.pictures|length > 0 %}
+                <div id="carrousel" class="col-span-3">
+                    <div id="container" class="flex items-center justify-center">
+                        {% for picture in property.pictures %}
+                            <img src="{{ asset(property_url ~ '/' ~ picture.url) }}" alt="picture"
+                                 class="hidden w-full h-[400px]">
+                        {% endfor %}
+                    </div>
+                    <img src="{{ asset('picture/icons8-flèche-droite-90.png') }}" alt="Prev" class="bouton" id="prev">
+                    <img src="{{ asset('picture/icons8-flèche-droite-90.png') }}" alt="Next" class="bouton" id="next">
+                </div>
+            {% else %}
+                <div id="carrousel" class="col-span-3">
+                    <div id="container" class="flex items-center justify-center">
+                        <img src="{{ asset('uploads/property/nopicture.jpg') }}" alt="picture"
+                             class="hidden w-[250] h-[250]">
+                    </div>
+                </div>
+            {% endif %}
+            <div class="ml-16">
+                <h3>Superficie :</h3>
+                <p>{{ property.surface }} m²</p>
+                <h3>Prix :</h3>
+                <p>{{ property.price }} €</p>
             </div>
-            <img src="{{ asset('picture/icons8-flèche-droite-90.png') }}" alt="Prev" class="bouton" id="prev">
-            <img src="{{ asset('picture/icons8-flèche-droite-90.png') }}" alt="Next" class="bouton" id="next">
         </div>
+        <div class="mb-8">
+            <h3>Description :</h3>
+            <p>{{ property.description }}</p>
 
-    <a href="{{ path('app_property_index') }}">back to list</a>
+            <h3>Adresse :</h3>
+            <p>{{ property.halfAddress }}</p>
+        </div>
+        {% if property.visits|length > 0 %}
+            <div class="mb-8">
+                <h3>Futur Visites :</h3>
+                <ul>
+                    {% for visit in property.visits %}
+                        <li>
+                            <a href="#">
+                                <time datetime="{{ visit.date|date('Y-m-d h:i') }}">
+                                    {{ visit.date|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                                </time>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="mb-8">
 
-    <a href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
-
-    {{ include('property/_delete_form.html.twig') }}
+        </div>
+        <a href="{{ path('property_list') }}">
+            <button type="button"
+                    class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                Retour
+            </button>
+        </a>
     </section>
-{% block javascripts %}
-    <script type="text/javascript">
-        document.body.onload=function (){
-            let container = document.getElementById('container');
-            let prev = document.getElementById('prev');
-            let next = document.getElementById('next');
+    {% block javascripts %}
+        <script type="text/javascript">
+            document.body.onload = function () {
+                let container = document.getElementById('container');
+                let prev = document.getElementById('prev');
+                let next = document.getElementById('next');
 
-            container.firstElementChild.classList.remove('hidden');
+                container.firstElementChild.classList.remove('hidden');
 
-            function nextSlide() {
-                let img = container.querySelector('img:not(.hidden)');
-                img.classList.add('hidden');
-                if (img.nextElementSibling) {
-                    img.nextElementSibling.classList.remove('hidden');
-                } else {
-                    container.firstElementChild.classList.remove('hidden');
+                function nextSlide() {
+                    let img = container.querySelector('img:not(.hidden)');
+                    img.classList.add('hidden');
+                    if (img.nextElementSibling) {
+                        img.nextElementSibling.classList.remove('hidden');
+                    } else {
+                        container.firstElementChild.classList.remove('hidden');
+                    }
                 }
-            }
 
-            function  prevSlide() {
-                let img = container.querySelector('img:not(.hidden)');
-                img.classList.add('hidden');
-                if (img.previousElementSibling) {
-                    img.previousElementSibling.classList.remove('hidden');
-                } else {
-                    container.lastElementChild.classList.remove('hidden');
+                function prevSlide() {
+                    let img = container.querySelector('img:not(.hidden)');
+                    img.classList.add('hidden');
+                    if (img.previousElementSibling) {
+                        img.previousElementSibling.classList.remove('hidden');
+                    } else {
+                        container.lastElementChild.classList.remove('hidden');
+                    }
                 }
-            }
 
-            const interval = setInterval(nextSlide, 3000);
-            next.addEventListener('click', () => {
-                clearInterval(interval);
-                nextSlide();
-            });
-            prev.addEventListener('click', () => {
-                clearInterval(interval);
-                prevSlide();
-            });
-        }
-    </script>
-{% endblock %}
+                const interval = setInterval(nextSlide, 3000);
+                next.addEventListener('click', () => {
+                    clearInterval(interval);
+                    nextSlide();
+                });
+                prev.addEventListener('click', () => {
+                    clearInterval(interval);
+                    prevSlide();
+                });
+            }
+        </script>
+    {% endblock %}
 {% endblock %}

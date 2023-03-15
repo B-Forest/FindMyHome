@@ -20,7 +20,9 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+    .addEntry('leaflet', './node_modules/leaflet/dist/leaflet.js')
     .addEntry('app', './assets/app.js')
+    .addStyleEntry('leaflet-css', './node_modules/leaflet/dist/leaflet.css')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -73,6 +75,8 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+
+
 ;
 
 module.exports = Encore.getWebpackConfig();

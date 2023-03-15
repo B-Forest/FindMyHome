@@ -23,12 +23,13 @@ class Visit
     #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'visits')]
-    private Collection $visitors;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'visit')]
+    private Collection $users;
+
 
     public function __construct()
     {
-        $this->visitors = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,24 +64,28 @@ class Visit
     /**
      * @return Collection<int, User>
      */
-    public function getVisitors(): Collection
+    public function getUsers(): Collection
     {
-        return $this->visitors;
+        return $this->users;
     }
 
-    public function addVisitor(User $visitor): self
+    public function addUser(User $user): self
     {
-        if (!$this->visitors->contains($visitor)) {
-            $this->visitors->add($visitor);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addVisit($this);
         }
 
         return $this;
     }
 
-    public function removeVisitor(User $visitor): self
+    public function removeUser(User $user): self
     {
-        $this->visitors->removeElement($visitor);
+        if ($this->users->removeElement($user)) {
+            $user->removeVisit($this);
+        }
 
         return $this;
     }
+
 }
