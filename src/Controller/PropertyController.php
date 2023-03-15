@@ -24,6 +24,14 @@ class PropertyController extends AbstractController
         ]);
     }
 
+    #[Route('/list', name: 'property_list', methods: ['GET'])]
+    public function list(PropertyRepository $propertyRepository): Response
+    {
+        return $this->render('property/list.html.twig', [
+            'properties' => $propertyRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_property_new', methods: ['GET', 'POST'])]
     public function new(Request $request,
                         PropertyRepository $propertyRepository,

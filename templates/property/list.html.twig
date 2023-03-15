@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Property List{% endblock %}
+
+{% block body %}
+<section>
+<h2>Property List</h2>
+<div class="grid grid-cols-3">
+    {% for property in properties %}
+        {% include 'property/_card.html.twig' %}
+    {% endfor %}
+</div>
+</section>
+
+{% endblock %}

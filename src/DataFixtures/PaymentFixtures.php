@@ -25,21 +25,6 @@ class PaymentFixtures extends Fixture
         $this->addReference('payment-mensuel', $mensuel);
         $manager->persist($mensuel);
 
-        $trimestriel = new Payment();
-        $trimestriel->setName('trimestriel');
-        $this->addReference('payment-trimestriel', $trimestriel);
-        $manager->persist($trimestriel);
-
-        $semestriel = new Payment();
-        $semestriel->setName('semestriel');
-        $this->addReference('payment-semestriel', $semestriel);
-        $manager->persist($semestriel);
-
-        $annuel = new Payment();
-        $annuel->setName('annuel');
-        $this->addReference('payment-annuel', $annuel);
-        $manager->persist($annuel);
-
         $achat = new Payment();
         $achat->setName('achat');
         $this->addReference('payment-achat', $achat);

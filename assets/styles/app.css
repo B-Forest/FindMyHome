@@ -5,3 +5,35 @@
 section {
     @apply px-8 lg:px-36;
 }
+
+#carrousel {
+    @apply w-[800px] h-[400px]  border-solid shadow-xl relative;
+}
+
+#container{
+    @apply w-[800px] h-[400px];
+}
+.photo{
+    @apply w-[800px] h-[400px] m-0 inline-block bg-cover;
+}
+
+.bouton{
+    @apply absolute top-[150px] cursor-pointer;
+}
+
+#prev{
+    @apply left-[0] opacity-40  rotate-180;
+}
+#next{
+    @apply right-[0] opacity-40  rotate-0;
+}
+
+#g:hover{
+    @apply  opacity-100 rotate-180 scale-110;
+}
+
+#d:hover{
+    @apply  opacity-100  rotate-0 scale-110;
+}
+
+
