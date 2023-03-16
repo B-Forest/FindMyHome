@@ -3,13 +3,15 @@
 {% block title %}Visit index{% endblock %}
 
 {% block body %}
+    <section>
     <h1>Visit index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date</th>
+                <th>Date Start</th>
+                <th>Date End</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -17,7 +19,8 @@
         {% for visit in visits %}
             <tr>
                 <td>{{ visit.id }}</td>
-                <td>{{ visit.date ? visit.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ visit.dateStart ? visit.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ visit.dateEnd ? visit.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_visit_show', {'id': visit.id}) }}">show</a>
                     <a href="{{ path('app_visit_edit', {'id': visit.id}) }}">edit</a>
@@ -32,4 +35,5 @@
     </table>
 
     <a href="{{ path('app_visit_new') }}">Create new</a>
+    </section>
 {% endblock %}

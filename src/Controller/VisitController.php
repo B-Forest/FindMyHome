@@ -25,7 +25,6 @@ class VisitController extends AbstractController
     public function new(Request $request, VisitRepository $visitRepository): Response
     {
         $visit = new Visit();
-        $visit->setPromoteur($this->getUser());
         $form = $this->createForm(VisitType::class, $visit);
         $form->handleRequest($request);
 
@@ -37,7 +36,7 @@ class VisitController extends AbstractController
 
         return $this->renderForm('visit/new.html.twig', [
             'visit' => $visit,
-            'form' => $form,
+            'visitForm' => $form,
         ]);
     }
 

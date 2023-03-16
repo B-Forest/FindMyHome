@@ -49,7 +49,6 @@ class PropertyController extends AbstractController
 
             // Uploader l'image
             $images = $form->get('pictures')->getData();
-            dump($images);
             foreach ($images as $image) {
                 $fileUploader->setTargetDirectory($this->getParameter('property_directory'));
                 $fileName = $fileUploader->upload($image);
@@ -61,7 +60,7 @@ class PropertyController extends AbstractController
 
             $propertyRepository->save($property, true);
 
-            return $this->redirectToRoute('app_property_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('property_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('property/new.html.twig', [

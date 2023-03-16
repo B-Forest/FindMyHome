@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function Symfony\Component\Translation\t;
 
 #[ORM\Entity(repositoryClass: VisitRepository::class)]
 class Visit
@@ -17,34 +18,31 @@ class Visit
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $dateStart = null;
 
     #[ORM\ManyToOne(inversedBy: 'visits')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'visit')]
-    private Collection $users;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateEnd = null;
 
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'visits')]
+    private ?User $visitor = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDateStart(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->dateStart;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDateStart(\DateTimeInterface $dateStart): self
     {
-        $this->date = $date;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
@@ -61,29 +59,26 @@ class Visit
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
+    public function getDateEnd(): ?\DateTimeInterface
     {
-        return $this->users;
+        return $this->dateEnd;
     }
 
-    public function addUser(User $user): self
+    public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addVisit($this);
-        }
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function getVisitor(): ?User
     {
-        if ($this->users->removeElement($user)) {
-            $user->removeVisit($this);
-        }
+        return $this->visitor;
+    }
+
+    public function setVisitor(?User $visitor): self
+    {
+        $this->visitor = $visitor;
 
         return $this;
     }

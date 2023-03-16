@@ -47,14 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Property::class)]
     private Collection $properties;
 
-    #[ORM\ManyToMany(targetEntity: Visit::class, inversedBy: 'users')]
-    private Collection $visit;
+    #[ORM\OneToMany(mappedBy: 'visitor', targetEntity: Visit::class)]
+    private Collection $visits;
+
 
     public function __construct()
     {
         $this->properties = new ArrayCollection();
         $this->visits = new ArrayCollection();
-        $this->visit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,15 +214,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Visit>
      */
-    public function getVisit(): Collection
+    public function getVisits(): Collection
     {
-        return $this->visit;
+        return $this->visits;
     }
 
     public function addVisit(Visit $visit): self
     {
-        if (!$this->visit->contains($visit)) {
-            $this->visit->add($visit);
+        if (!$this->visits->contains($visit)) {
+            $this->visits->add($visit);
+            $visit->setVisitor($this);
         }
 
         return $this;
@@ -230,8 +231,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeVisit(Visit $visit): self
     {
-        $this->visit->removeElement($visit);
+        if ($this->visits->removeElement($visit)) {
+            // set the owning side to null (unless already changed)
+            if ($visit->getVisitor() === $this) {
+                $visit->setVisitor(null);
+            }
+        }
 
         return $this;
     }
+
 }

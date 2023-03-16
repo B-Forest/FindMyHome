@@ -1,21 +1,21 @@
 <article>
-    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
         <a href="{{ path('app_property_show',{'id' : property.id})}}" class="flex items-center justify-center">
             {% if property.pictures|length > 0 %}
-                <img src="{{ asset(property_url ~ '/' ~ property.pictures[0].url) }}" alt="picture" class="rounded-t-lg">
+                <img src="{{ asset(property_url ~ '/' ~ property.pictures[0].url) }}" alt="picture" class="rounded-t-lg h-56  w-full">
             {% else %}
                 <img src="{{ asset('uploads/property/nopicture.jpg') }}" alt="picture" class="rounded-t-lg">
             {% endif %}
         </a>
         <div class="p-5">
             <a href="{{ path('app_property_show',{'id' : property.id})}}">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ property.name }}</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ property.name }}</h5>
             </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ property.city }}</p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ property.price }} €</p>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ property.surface }} m²</p>
+            <p class="mb-3 font-normal text-gray-700">{{ property.city }}</p>
+            <p class="mb-3 font-normal text-gray-700">{{ property.price }} €</p>
+            <p class="mb-3 font-normal text-gray-700">{{ property.surface }} m²</p>
             <a href="{{ path('app_property_show',{'id' : property.id})}}"
-               class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+               class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">
                 Voir en détail
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">

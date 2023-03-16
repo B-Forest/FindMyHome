@@ -4,7 +4,12 @@
 
 {% block body %}
     <section>
-        <h2 class="my-8">{{ property.name }}</h2>
+        <div class="grid grid-cols-2 my-8">
+            <h2>{{ property.name }}</h2>
+            {% if app.user and app.user.id != property.owner.id %}
+                <button type="button" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100  rounded-full px-5 py-2.5 mr-2 mb-2">Light</button>
+            {% endif %}
+        </div>
         <div class="grid grid-cols-4 mb-12">
             {% if property.pictures|length > 0 %}
                 <div id="carrousel" class="col-span-3">
@@ -42,17 +47,37 @@
         {% if property.visits|length > 0 %}
             <div class="mb-8">
                 <h3>Futur Visites :</h3>
-                <ul>
-                    {% for visit in property.visits %}
-                        <li>
-                            <a href="#">
-                                <time datetime="{{ visit.date|date('Y-m-d h:i') }}">
-                                    {{ visit.date|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Début de la visite
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Fin de la visite
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for visit in property.visits %}
+                        <tr class="bg-white border-b">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <time datetime="{{ visit.dateStart|date('Y-m-d h:i') }}">
+                                    {{ visit.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
                                 </time>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                            </th>
+                            <td class="px-6 py-4">
+                                <time datetime="{{ visit.dateEnd|date('Y-m-d h:i') }}">
+                                    {{ visit.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                                </time>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         {% endif %}
         <div class="mb-8">
@@ -60,7 +85,7 @@
         </div>
         <a href="{{ path('property_list') }}">
             <button type="button"
-                    class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                    class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                 Retour
             </button>
         </a>
@@ -94,7 +119,7 @@
                     }
                 }
 
-                const interval = setInterval(nextSlide, 3000);
+                const interval = setInterval(nextSlide, 5000);
                 next.addEventListener('click', () => {
                     clearInterval(interval);
                     nextSlide();
