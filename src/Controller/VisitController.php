@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Visit;
+use App\Form\VisiteurType;
 use App\Form\VisitType;
 use App\Repository\VisitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +42,26 @@ class VisitController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/inscription', name: 'app_visit_inscription', methods: ['GET', 'POST'])]
+    public function inscription(Request $request, Visit $visit, EntityManagerInterface $entityManager, VisitRepository $visitRepository): Response
+    {
+        $form = $this->createForm(VisiteurType::class, $visit);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $visit->setVisitor($this->getUser());
+            $entityManager ->persist($visit);
+            $visitRepository->save($visit, true);
+
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('visit/inscription.html.twig', [
+            'visit' => $visit,
+            'form' => $form,
+        ]);
+    }
+
+
     #[Route('/{id}', name: 'app_visit_show', methods: ['GET'])]
     public function show(Visit $visit): Response
     {
@@ -47,6 +69,7 @@ class VisitController extends AbstractController
             'visit' => $visit,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_visit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Visit $visit, VisitRepository $visitRepository): Response

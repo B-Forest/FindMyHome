@@ -7,7 +7,10 @@
         <div class="grid grid-cols-2 my-8">
             <h2>{{ property.name }}</h2>
             {% if app.user and app.user.id != property.owner.id %}
-                <button type="button" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100  rounded-full px-5 py-2.5 mr-2 mb-2">Light</button>
+                <button type="button"
+                        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100  rounded-full px-5 py-2.5 mr-2 mb-2">
+                    Light
+                </button>
             {% endif %}
         </div>
         <div class="grid grid-cols-4 mb-12">
@@ -36,7 +39,7 @@
                 <h3>Prix :</h3>
                 <p>{{ property.price }} €</p>
                 <h3>Mode de payement :</h3>
-                <p>{{ property.payment.name}}</p>
+                <p>{{ property.payment.name }}</p>
             </div>
         </div>
         <div class="mb-8">
@@ -59,22 +62,32 @@
                             <th scope="col" class="px-6 py-3">
                                 Fin de la visite
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Visiteur ?
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for visit in property.visits %}
-                        <tr class="bg-white border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                <time datetime="{{ visit.dateStart|date('Y-m-d h:i') }}">
-                                    {{ visit.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
-                                </time>
-                            </th>
-                            <td class="px-6 py-4">
-                                <time datetime="{{ visit.dateEnd|date('Y-m-d h:i') }}">
-                                    {{ visit.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
-                                </time>
-                            </td>
-                        </tr>
+                            <tr class="bg-white border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    <time datetime="{{ visit.dateStart|date('Y-m-d h:i') }}">
+                                        {{ visit.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                                    </time>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <time datetime="{{ visit.dateEnd|date('Y-m-d h:i') }}">
+                                        {{ visit.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                                    </time>
+                                </td>
+                                <td>
+                                {% if visit.visitor %}
+                                    <p>Il y a deja un visiteur</p>
+                                {% else %}
+                                    <a href="{{path('app_visit_inscription',{'id' : visit.id})}}"> Il n'y pas pas de visisteur inscrivez vous !</a>
+                                {% endif %}
+                                </td>
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>
