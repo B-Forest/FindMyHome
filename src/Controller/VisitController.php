@@ -31,7 +31,7 @@ class VisitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $visitRepository->save($visit, true);
 
-            return $this->redirectToRoute('app_visit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('visit/new.html.twig', [

@@ -23,7 +23,8 @@ class VisitFixtures extends Fixture implements DependentFixtureInterface
         $visit2 = new Visit();
         $visit2->setDateStart($today->modify('+3 day'));
         $visit2->setDateEnd($today->modify('+3 day + 1 hour'));
-        $visit2->setProperty($this->getReference('maison-1'));
+        $visit2->setProperty($this->getReference('maison-2'));
+        $visit2->setVisitor($this->getReference('user-julick'));
         $this->addReference('visit-2', $visit2);
         $manager->persist($visit2);
 

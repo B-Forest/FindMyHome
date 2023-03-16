@@ -4,7 +4,7 @@
 
 {% block body %}
     <section>
-        <h2 class="my-8">Liste des biens en location</h2>
+        <h2>Liste des biens en location</h2>
         <div class="grid grid-cols-3 gap-y-8">
             {% for property in propertieslocation %}
                 {% include 'property/_card.html.twig' %}
