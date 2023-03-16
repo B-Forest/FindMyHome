@@ -8,6 +8,7 @@ use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,24 @@ class PropertyController extends AbstractController
         ]);
     }
 
+    #[Route('/list/location', name: 'property_location', methods: ['GET'])]
+    public function listlocation(PropertyRepository $propertyRepository): Response
+    {
+        return $this->render('property/listlocation.html.twig', [
+            'propertieslocation' => $propertyRepository->findLocation(),
+        ]);
+    }
+    #[Route('/list/achat', name: 'property_achat', methods: ['GET'])]
+    public function listachat(PropertyRepository $propertyRepository): Response
+    {
+        return $this->render('property/listachat.html.twig', [
+            'propertiesachat' => $propertyRepository->findAchat(),
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_property_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request,
                         PropertyRepository $propertyRepository,
                         EntityManagerInterface $entityManager,

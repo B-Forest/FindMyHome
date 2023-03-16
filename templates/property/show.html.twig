@@ -35,6 +35,8 @@
                 <p>{{ property.surface }} m²</p>
                 <h3>Prix :</h3>
                 <p>{{ property.price }} €</p>
+                <h3>Mode de payement :</h3>
+                <p>{{ property.payment.name}}</p>
             </div>
         </div>
         <div class="mb-8">
@@ -81,6 +83,8 @@
             </div>
         {% endif %}
         <div class="mb-8">
+            <h3>Propriétaire :</h3>
+            <p>{{ property.owner.fullName }}</p>
 
         </div>
         <a href="{{ path('property_list') }}">

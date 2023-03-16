@@ -63,4 +63,28 @@ class PropertyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findLocation(): array
+    {
+        $qb = $this->createQueryBuilder('property');
+
+        $qb->addSelect('property')
+            ->join('property.payment', 'payment')
+            ->where('payment.name != :payment_name')
+            ->setParameter(':payment_name', 'achat');
+
+        return $qb->getQuery()->getResult();
+    }
+    public function findAchat(): array
+    {
+        $qb = $this->createQueryBuilder('property');
+
+        $qb->addSelect('property')
+            ->join('property.payment', 'payment')
+            ->where('payment.name = :payment_name')
+            ->setParameter(':payment_name', 'achat');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }
