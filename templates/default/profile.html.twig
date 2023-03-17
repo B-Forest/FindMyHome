@@ -16,30 +16,33 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-3 mb-4">
-            <h3 class="mb-4">Mes biens</h3>
-            <a href="{{ path('app_property_new') }}"
-               class="flex justify-center items-center text-white text-3xl col-start-3 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                Ajouter un bien immobilier
-            </a>
-        </div>
-        {% if properties %}
-            <div class="grid grid-cols-3 gap-y-8 mb-4">
-                {% for property in properties %}
-                    {% include 'property/_card.html.twig' %}
-                {% endfor %}
+        <div class="mb-8">
+            <div class="grid grid-cols-3 mb-4">
+                <h3 class="mb-4">Mes biens :</h3>
+                <a href="{{ path('app_property_new') }}"
+                   class="flex justify-center items-center text-white text-3xl col-start-3 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                    Ajouter un bien immobilier
+                </a>
             </div>
-        {% else %}
-            <h4 class="mb-4 ">Vous n'avez pas encore publié de bien</h4>
-        {% endif %}
-        <div class="grid grid-cols-3 mb-4">
-            <h3>Mes visites a faire</h3>
-            <a href="{{ path('app_visit_new') }}"
-               class="flex justify-center items-center text-3xl text-white col-start-3 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                Créer une visite
-            </a>
+            {% if properties %}
+                <div class="grid grid-cols-3 gap-y-8 mb-4">
+                    {% for property in properties %}
+                        {% include 'property/_card.html.twig' %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h4 class="mb-4 ">Vous n'avez pas encore publié de bien</h4>
+            {% endif %}
         </div>
-        {% if visits %}
+        <div class="mb-8">
+            <div class="grid grid-cols-3 mb-4">
+                <h3>Mes visites a faire :</h3>
+                <a href="{{ path('app_visit_new') }}"
+                   class="flex justify-center items-center text-3xl text-white col-start-3 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                    Créer une visite
+                </a>
+            </div>
+            {% if visits %}
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -76,50 +79,66 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+        {% else %}
+            <h4>Vous n'avez pas encore créé de visite</h4>
+        {% endif %}
+        <div class="mb-8">
+            <h3>Mes visites a assister :</h3>
+            {% if visitstodo %}
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nom du bien
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Début de la visite
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Fin de la visite
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for visittodo in visitstodo %}
+                    <tr class="bg-white border-b">
+                        <td class="px-6 py-4">
+                            <a href="{{ path('app_property_show',{'id' : visittodo.property.id}) }}"
+                               class="text-gray-900 font-medium hover:text-gray-600">
+                                {{ visittodo.property.name }}
+                            </a>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <time datetime="{{ visittodo.dateStart|date('Y-m-d h:i') }}">
+                                {{ visittodo.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                            </time>
+                        </th>
+                        <td class="px-6 py-4">
+                            <time datetime="{{ visittodo.dateEnd|date('Y-m-d h:i') }}">
+                                {{ visittodo.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
+                            </time>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="mb-4">Vous n'avez pas de visite a assister</p>
+        {% endif %}
+    <div class="mb-8">
+        <h3>Mes biens Favoris :</h3>
+        {% if favorite[0].property is null %}
+            {% dump favorite[0].property %}
+            <div class="grid grid-cols-3 gap-y-8 mb-4">
+                {% for property in favorite[0].property %}
+                    {% include 'property/_card.html.twig' %}
+                {% endfor %}
             </div>
         {% else %}
-            <h4 class="mb-4">Vous n'avez pas encore créé de visite</h4>
+            <p class="mb-4">Vous n'avez pas encore de bien favoris</p>
         {% endif %}
-        <h3>Mes visites a assister</h3>
-        {% if visitstodo %}
-        <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Nom du bien
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Début de la visite
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Fin de la visite
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for visittodo in visitstodo %}
-                {% dump visittodo %}
-                <tr class="bg-white border-b">
-                    <td class="px-6 py-4">
-                        <a href="{{ path('app_property_show',{'id' : visittodo.property.id}) }}"
-                           class="text-gray-900 font-medium hover:text-gray-600">
-                            {{ visittodo.property.name }}
-                        </a>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        <time datetime="{{ visittodo.dateStart|date('Y-m-d h:i') }}">
-                            {{ visittodo.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
-                        </time>
-                    </th>
-                    <td class="px-6 py-4">
-                        <time datetime="{{ visittodo.dateEnd|date('Y-m-d h:i') }}">
-                            {{ visittodo.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
-                        </time>
-                    </td>
-                </tr>
-            {% endfor %}
-        {% else %}
-            <p class="mb-4">Vous n'avez pas de visite a assister</p>
-        {% endif %}
+    </div>
 
     </section>
 

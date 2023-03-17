@@ -80,7 +80,7 @@ class PropertyController extends AbstractController
 
             $propertyRepository->save($property, true);
 
-            return $this->redirectToRoute('property_list', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('profile', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('property/new.html.twig', [

@@ -28,6 +28,7 @@ class VisitController extends AbstractController
     #[IsGranted('ROLE_OWNER')]
     public function new(Request $request, VisitRepository $visitRepository): Response
     {
+        $user = $this->getUser();
         $visit = new Visit();
         $form = $this->createForm(VisitType::class, $visit);
         $form->handleRequest($request);
@@ -35,7 +36,7 @@ class VisitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $visitRepository->save($visit, true);
 
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('profile', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('visit/new.html.twig', [

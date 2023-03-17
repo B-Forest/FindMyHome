@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Favorite;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Service\FileUploader;
@@ -35,6 +36,10 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $favorite = new Favorite();
+            $favorite->setUser($user);
+            $entityManager->persist($favorite);
 
             $image = $form->get('profilePicture')->getData();
             if ($image) {

@@ -40,6 +40,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($secondhouse);
         $this->setReference('maison-2', $secondhouse);
 
+
         $manager->flush();
     }
 
