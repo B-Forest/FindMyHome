@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section>
+        <h2>Inscription</h2>
+        <p>Vous voulez vous incrire a la visite pour : {{visit.property.name}}</p>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+        {{ form_end(form) }}
+    </section>
+
+{% endblock %}

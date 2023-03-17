@@ -7,6 +7,7 @@ use App\Form\VisiteurType;
 use App\Form\VisitType;
 use App\Repository\VisitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class VisitController extends AbstractController
     }
 
     #[Route('/new', name: 'app_visit_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_OWNER')]
     public function new(Request $request, VisitRepository $visitRepository): Response
     {
         $visit = new Visit();

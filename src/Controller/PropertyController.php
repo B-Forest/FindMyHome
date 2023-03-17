@@ -59,6 +59,8 @@ class PropertyController extends AbstractController
     ): Response
     {
         $property = new Property();
+        $user = $this->getUser();
+        $user->setRoles(['ROLE_OWNER']);
         $property->setOwner($this->getUser());
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
