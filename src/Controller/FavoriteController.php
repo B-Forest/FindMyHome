@@ -22,13 +22,13 @@ class FavoriteController extends AbstractController
     }
 
     #[Route('/new', name: 'app_favorite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FavoriteRepository $favoriteRepository): Response
+    public function new(Request $request, Favorite $favorite, FavoriteRepository $favoriteRepository): Response
     {
-        $favorite = new Favorite();
+        $property = $request->query->get('property');
         $form = $this->createForm(FavoriteType::class, $favorite);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $favorite->addProperty($property);
             $favoriteRepository->save($favorite, true);
 
             return $this->redirectToRoute('app_favorite_index', [], Response::HTTP_SEE_OTHER);

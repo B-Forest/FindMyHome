@@ -6,7 +6,7 @@
     <section>
         <div class="grid grid-cols-3 mb-8">
             <div>
-                <h2>{{ user.fullName }}</h2>
+                <h2 class="capitalize">{{ user.fullName }}</h2>
                 <p>Adresse email : {{ user.email }}</p>
             </div>
             <div class="col-start-3">
@@ -98,6 +98,9 @@
                     <th scope="col" class="px-6 py-3">
                         Fin de la visite
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Adresse de la visite
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -118,6 +121,9 @@
                                 {{ visittodo.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
                             </time>
                         </td>
+                        <td class="px-6 py-4">
+                            {{ visittodo.property.fullAddress }}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -128,6 +134,7 @@
         {% endif %}
     <div class="mb-8">
         <h3>Mes biens Favoris :</h3>
+        {% dump favorite %}
         {% if favorite[0].property is null %}
             {% dump favorite[0].property %}
             <div class="grid grid-cols-3 gap-y-8 mb-4">

@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Lato';
+    src: url('../../public/fonts/Lato/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Fasthand';
+    src: url('../../public/fonts/fasthand/Fasthand-Regular.ttf');
+}
+
 html {
-    @apply font-sans;
+    @apply font-lato;
 }
 
 section {

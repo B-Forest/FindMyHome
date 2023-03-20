@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Property{% endblock %}
+
+{% block body %}
+    <section>
+        <h1>Add Property to Favorite</h1>
+        {{ form_start(favoriteForm) }}
+        {{ form_widget(favoriteForm) }}
+        {{ form_end(favoriteForm) }}
+        <a href="{{ path('app_property_index') }}">back to list</a>
+    </section>
+{% endblock %}

@@ -19,7 +19,7 @@
     <nav class="flex flex-row i justify-between">
         <div class="relative z-20 flex items-center">
             <a href="{{ path('homepage') }}" class="py-8 pr-8">
-                <h3>FMH</h3>
+                <h3 class="font-fasthand">FMH</h3>
             </a>
         </div>
         <div class="flex items-center justify-end ">
@@ -54,7 +54,7 @@
                         {% if app.user %}
                             <li class="px-8 font-normal text-lg text-center">
                                 <a href="{{ path('profile', {'id': app.user.id} ) }}"
-                                   class="text-blue-500 block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-400 md:p-0">{{ app.user.fullName }}</a>
+                                   class="capitalize text-blue-500 block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-400 md:p-0">{{ app.user.fullName }}</a>
                             </li>
                             <li class="px-8 font-normal text-lg text-center">
                                 <a href="{{ path('app_logout') }}"

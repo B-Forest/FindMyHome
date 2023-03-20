@@ -38,6 +38,7 @@ class DefaultController extends AbstractController
         $visits = $visitRepository->findBy(['property' => $properties]);
         $visitstodo = $visitRepository->findBy(['visitor' => $user]);
         $favorite = $favoriteRepository->findBy(['user' => $user]);
+
         if ($user->getId() !== $id) {
             return $this->redirectToRoute('profile', ['id' => $user->getId()]);
         }

@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Favorite;
 use App\Entity\Property;
 use App\Entity\Picture;
+use App\Form\FavoriteType;
 use App\Form\PropertyType;
+use App\Repository\FavoriteRepository;
 use App\Repository\PropertyRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -90,10 +93,35 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_property_show', methods: ['GET'])]
-    public function show(Property $property): Response
+    public function show(Property $property, FavoriteRepository $favoriteRepository): Response
     {
+        $user = $this->getUser();
+        $favorite = $favoriteRepository->findBy(['user' => $user]);
         return $this->render('property/show.html.twig', [
             'property' => $property,
+            'favorite' => $favorite,
+        ]);
+    }
+
+    #[Route('/{id}/favorite', name: 'ajoutfavori', methods: ['GET', 'POST'])]
+    public function add(Property $property, Request $request, PropertyRepository $propertyRepository,
+                        EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $favorite = $entityManager->getRepository(Favorite::class)->findOneBy(['user' => $user]);
+        $form = $this->createForm(FavoriteType::class, $favorite);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $favorite->addProperty($property);
+            $entityManager->persist($favorite);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_property_show', ['id' => $property->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('favorite/add.html.twig', [
+            'property' => $property,
+            'favoriteForm' => $form,
         ]);
     }
 
