@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Property;
+use App\Entity\User;
 use App\Entity\Visit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,6 +41,31 @@ class VisitRepository extends ServiceEntityRepository
         }
     }
 
+    public function findFutureVisit(Property|User $entity = null): array
+    {
+        $qb = $this->createQueryBuilder('visit');
+
+        $qb->addSelect('property')
+            ->join('visit.property', 'property')
+            ->where('visit.dateStart > :today');
+
+        if ($entity instanceof Property) {
+            $qb->andWhere('property.id = :property_id')
+                ->setParameter(':property_id', $entity->getId());
+        }
+        elseif ($entity instanceof User) {
+            $qb->join('visit.visitor', 'visitor')
+                ->andWhere('visitor.id = :user_id')
+                ->setParameter(':user_id', $entity->getId());
+        }
+
+        $qb->orderBy('visit.dateStart', 'ASC')
+            ->setParameter(':today', new \DateTime());
+
+        return $qb->getQuery()->getResult();
+    }
+
+
 //    /**
 //     * @return Visit[] Returns an array of Visit objects
 //     */
@@ -63,4 +90,5 @@ class VisitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

@@ -17,7 +17,7 @@ html {
 }
 
 section {
-    @apply px-8 lg:px-36;
+    @apply px-8 lg:px-36 pb-8 bg-secondary;
 }
 
 h1 {
@@ -25,7 +25,7 @@ h1 {
 }
 
 h2 {
-    @apply text-6xl my-8 font-bold text-gray-800;
+    @apply text-6xl p-8 font-bold text-gray-800;
 }
 
 h3 {

@@ -9,6 +9,7 @@ use App\Form\FavoriteType;
 use App\Form\PropertyType;
 use App\Repository\FavoriteRepository;
 use App\Repository\PropertyRepository;
+use App\Repository\VisitRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -93,12 +94,13 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_property_show', methods: ['GET'])]
-    public function show(Property $property, FavoriteRepository $favoriteRepository): Response
+    public function show(Property $property, FavoriteRepository $favoriteRepository, VisitRepository $visit): Response
     {
         $user = $this->getUser();
         $favorite = $favoriteRepository->findBy(['user' => $user]);
         return $this->render('property/show.html.twig', [
             'property' => $property,
+            'visits' => $visit->findFutureVisit($property),
             'favorite' => $favorite,
         ]);
     }

@@ -35,7 +35,6 @@ class DefaultController extends AbstractController
     {
         $user = $this->getUser();
         $properties = $propertyRepository->findBy(['owner' => $user]);
-        $visits = $visitRepository->findBy(['property' => $properties]);
         $visitstodo = $visitRepository->findBy(['visitor' => $user]);
         $favorite = $favoriteRepository->findBy(['user' => $user]);
 
@@ -46,7 +45,7 @@ class DefaultController extends AbstractController
         return $this->render('default/profile.html.twig', [
             'user' => $user,
             'properties' => $properties,
-            'visits' => $visits,
+            'visits' => $visitRepository->findFutureVisit($user),
             'visitstodo' => $visitstodo,
             'favorite' => $favorite,
         ]);
