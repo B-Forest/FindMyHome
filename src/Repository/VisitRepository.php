@@ -51,16 +51,33 @@ class VisitRepository extends ServiceEntityRepository
 
         if ($entity instanceof Property) {
             $qb->andWhere('property.id = :property_id')
-                ->setParameter(':property_id', $entity->getId());
+                ->setParameter('property_id', $entity->getId());
         }
         elseif ($entity instanceof User) {
             $qb->join('visit.visitor', 'visitor')
                 ->andWhere('visitor.id = :user_id')
-                ->setParameter(':user_id', $entity->getId());
+                ->setParameter('user_id', $entity->getId());
         }
 
         $qb->orderBy('visit.dateStart', 'ASC')
-            ->setParameter(':today', new \DateTime());
+            ->setParameter('today', new \DateTime());
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public  function  findFutureVisitOwner(User $user) : array
+    {
+        $qb = $this->createQueryBuilder('visit');
+
+        $qb->addSelect('property')
+            ->join('visit.property', 'property')
+            ->join('property.owner', 'owner')
+            ->where('owner = :owner')
+            ->andWhere('visit.dateStart > :today')
+            ->setParameter(':today', new \DateTime())
+            ->setParameter(':owner', $user);
+
+
 
         return $qb->getQuery()->getResult();
     }

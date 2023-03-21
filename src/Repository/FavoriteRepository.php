@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Favorite;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,20 @@ class FavoriteRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findFavoritUser (User $user): array
+    {
+        $qb = $this->createQueryBuilder('favorite');
+
+        $qb->addSelect('property')
+            ->join('favorite.property', 'property')
+            ->where('favorite.user = :user_id')
+            ->andWhere('favorite.property = :favorite_id')
+            ->setParameter('favorite_id', $favorite->getId())
+            ->setParameter('user_id', $user->getId());
+
+        return $qb->getQuery()->getResult();
     }
 
 //    /**

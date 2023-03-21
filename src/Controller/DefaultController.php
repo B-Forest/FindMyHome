@@ -31,12 +31,15 @@ class DefaultController extends AbstractController
 
     #[Route('/profile/{id}', name: 'profile', requirements: ['id' => '\d+'])]
     #[IsGranted('ROLE_USER')]
-    public function profile(int $id, UserRepository $userRepository, PropertyRepository $propertyRepository, VisitRepository $visitRepository, FavoriteRepository $favoriteRepository,): Response
+    public function profile(int $id,
+                            PropertyRepository $propertyRepository,
+                            VisitRepository $visitRepository,
+                            FavoriteRepository $favoriteRepository
+    ): Response
     {
         $user = $this->getUser();
         $properties = $propertyRepository->findBy(['owner' => $user]);
-        $visitstodo = $visitRepository->findBy(['visitor' => $user]);
-        $favorite = $favoriteRepository->findBy(['user' => $user]);
+        $favorite = $favoriteRepository->findOneBy(['user' => $user]);
 
         if ($user->getId() !== $id) {
             return $this->redirectToRoute('profile', ['id' => $user->getId()]);
@@ -45,8 +48,8 @@ class DefaultController extends AbstractController
         return $this->render('default/profile.html.twig', [
             'user' => $user,
             'properties' => $properties,
-            'visits' => $visitRepository->findFutureVisit($user),
-            'visitstodo' => $visitstodo,
+            'visits' => $visitRepository->findFutureVisitOwner($user),
+            'visitstodo' => $visitRepository->findFutureVisit($user),
             'favorite' => $favorite,
         ]);
     }

@@ -59,6 +59,9 @@
                     <th scope="col" class="px-6 py-3">
                         Fin de la visite
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Visiteur
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -79,6 +82,17 @@
                                 {{ visit.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
                             </time>
                         </td>
+                        <td class="px-6 py-4">
+                            <p class="text-gray-900 font-medium hover:text-gray-600">
+                                {% if visit.visitor %}
+                                {{ visit.visitor.fullName }}
+                                {% else %}
+                            <p class="text-gray-900 font-medium hover:text-gray-600">
+                                Aucun visiteur
+                            </p>
+                            {% endif %}
+                            </p>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -89,6 +103,7 @@
         {% endif %}
         <div class="mb-8">
             <h3 class="mb-4">Mes visites a assister :</h3>
+            {% dump visitstodo %}
             {% if visitstodo %}
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -136,20 +151,19 @@
     {% else %}
         <p class="mb-4">Vous n'avez pas de visite a assister</p>
         {% endif %}
-    <div class="pb-8">
-        <h3 class="mb-4">Mes biens Favoris :</h3>
-        {% dump favorite %}
-        {% if favorite[0].property is null %}
-            {% dump favorite[0].property %}
-            <div class="grid grid-cols-3 gap-y-8 mb-4">
-                {% for property in favorite[0].property %}
-                    {% include 'property/_card.html.twig' %}
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>Vous n'avez pas encore de bien favoris</p>
-        {% endif %}
-    </div>
+        <div class="pb-8">
+            <h3 class="mb-4">Mes biens Favoris :</h3>
+            {% dump favorite %}
+            {% if favorite.property is null %}
+                <div class="grid grid-cols-3 gap-y-8 mb-4">
+                    {% for property in favorite[0].property %}
+                        {% include 'property/_card.html.twig' %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Vous n'avez pas encore de bien favoris</p>
+            {% endif %}
+        </div>
 
     </section>
 
