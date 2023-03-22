@@ -29,15 +29,15 @@ class VisitType extends AbstractType
             ->add('dateStart', DateTimeType::class,  [
                 'date_widget' => 'single_text',
                 'placeholder' => [
-                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
-                    'hour' => 'Hour', 'minute' => 'Minute', 'second' => 'Second',
+                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
+                    'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Seconde',
                 ],
             ])
             ->add('dateEnd', DateTimeType::class,  [
                 'date_widget' => 'single_text',
                 'placeholder' => [
-                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
-                    'hour' => 'Hour', 'minute' => 'Minute', 'second' => 'Second',
+                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
+                    'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Seconde',
                 ],
             ])
             ->add('property',EntityType::class, [

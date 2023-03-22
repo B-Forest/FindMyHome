@@ -1,14 +1,14 @@
 {{ form_start(propertyForm) }}
-    {{ form_row(propertyForm.name , {'attr': {'class': 'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Titre de votre propriété'}},{'label_attr':'Titre de votre propriéte'}) }}
-    {{ form_row(propertyForm.description , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Description de votre Propriété'}}) }}
-    {{ form_row(propertyForm.price , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Prix que vous voulez pour votre propriété'}}) }}
-    {{ form_row(propertyForm.surface , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Surface en m² de votre Propriété'}}) }}
-    {{ form_row(propertyForm.city , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Ville ou est situé votre Propriété'}}) }}
-    {{ form_row(propertyForm.zipCode , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Code postal ou est situé votre Propriété'}}) }}
-    {{ form_row(propertyForm.address , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'L\'adresse de votre Propriété'}}) }}
-    {{ form_row(propertyForm.category , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Catégorie de votre Propriété'}}) }}
-    {{ form_row(propertyForm.payment , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Type de payment pour votre Propriété'}}) }}
-    {{ form_row(propertyForm.pictures , {'attr': {'class':'mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Photos    de votre Propriété'}}) }}
+    {{ form_row(propertyForm.name , {'attr': {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Titre de votre propriété'}},{'label_attr':'Titre de votre propriéte'}) }}
+    {{ form_row(propertyForm.description , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Description de votre Propriété'}}) }}
+    {{ form_row(propertyForm.price , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Prix que vous voulez pour votre propriété'}}) }}
+    {{ form_row(propertyForm.surface , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Surface en m² de votre Propriété'}}) }}
+    {{ form_row(propertyForm.city , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Ville ou est situé votre Propriété'}}) }}
+    {{ form_row(propertyForm.zipCode , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Code postal ou est situé votre Propriété'}}) }}
+    {{ form_row(propertyForm.address , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'L\'adresse de votre Propriété'}}) }}
+    {{ form_row(propertyForm.category , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Catégorie de votre Propriété'}}) }}
+    {{ form_row(propertyForm.payment , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Type de payment pour votre Propriété'}}) }}
+    {{ form_row(propertyForm.pictures , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Photos    de votre Propriété'}}) }}
 
     <div class="flex justify-center items-center">
     <button class="btn text-white bg-valid font-medium rounded-lg text-sm px-16 py-6 text-center mr-2 mb-2">{{ button_label|default('Enregistrer ma propriété') }}</button>
