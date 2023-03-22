@@ -47,10 +47,6 @@
                             <a href="{{ path('property_achat') }}"
                                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Vente</a>
                         </li>
-                        <li class="px-8 font-normal text-lg text-center">
-                            <a href="{{ path('about') }}"
-                               class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a>
-                        </li>
                         {% if app.user %}
                             <li class="px-8 font-normal text-lg text-center">
                                 <a href="{{ path('profile', {'id': app.user.id} ) }}"
