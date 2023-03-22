@@ -9,6 +9,6 @@
     {{ include('property/_form.html.twig') }}
 
 
-    <a href="{{ path('property_list') }}" class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Retour a la liste</a>
+    <a href="{{ path('profile', {'id': app.user.id} ) }}" class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Retour a votre profil</a>
     </section>
 {% endblock %}

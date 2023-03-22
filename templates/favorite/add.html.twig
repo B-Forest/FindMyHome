@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add Property{% endblock %}
+{% block title %}Ajout Property{% endblock %}
 
 {% block body %}
     <section>
-        <h1>Add Property to Favorite</h1>
-        {{ form_start(favoriteForm) }}
-        {{ form_widget(favoriteForm) }}
-        {{ form_end(favoriteForm) }}
-        <a href="{{ path('app_property_index') }}">back to list</a>
+        <h2>Voulez vous bien ajouter cette propriété a vos favoris</h2>
+        <div class="flex flex-col justify-center items-center">
+        {{ form_start(favoriteForm , {'attr': {'class': 'flex justify-center items-center w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5'}}) }}
+        {{ form_row(favoriteForm.submit) }}
+        {{ form_end(favoriteForm , {'attr': {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5'}}) }}
+        <a href="{{ path('app_property_index') }}" class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">back to list</a>
+        </div>
     </section>
 {% endblock %}
