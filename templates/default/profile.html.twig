@@ -7,7 +7,8 @@
         <div class="grid grid-cols-3 mb-8">
             <div>
                 <h2 class="capitalize">{{ user.fullName }}</h2>
-                <p>Adresse email : {{ user.email }}</p>
+                <p class="pl-8">{{ user.email }}</p>
+                <a href="{{ path('profile_edit', {'id': app.user.id}) }}">Mettre a jour</a>
             </div>
             <div class="col-start-3">
                 <div class="flex justify-center items-center">
@@ -17,7 +18,7 @@
             </div>
         </div>
         <div class="mb-8">
-            <div class="grid grid-cols-3 mb-4">
+            <div class="flex justify-between mb-4">
                 <h3 class="mb-4">Mes biens :</h3>
                 <div class="grid grid-cols-3 col-start-3">
                     <a href="{{ path('app_property_new') }}"
@@ -27,7 +28,7 @@
                 </div>
             </div>
             {% if properties %}
-                <div class="grid grid-cols-3 gap-y-8 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-4 mb-4">
                     {% for property in properties %}
                         {% include 'property/_card.html.twig' %}
                     {% endfor %}
@@ -37,7 +38,7 @@
             {% endif %}
         </div>
         <div class="mb-8">
-            <div class="grid grid-cols-3 mb-4">
+            <div class="flex justify-between mb-4">
                 <h3 class="mb-4">Mes visites a faire :</h3>
                 <div class="grid grid-cols-3 col-start-3">
                     <a href="{{ path('app_visit_new') }}"
@@ -47,7 +48,7 @@
                 </div>
             </div>
             {% if visits %}
-            <table class="w-full text-sm text-left text-gray-500">
+            <table class="w-full text-sm text-left text-gray-500 table-fixed overflow-x-auto">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -72,11 +73,11 @@
                                class="text-gray-900 font-medium hover:text-gray-600">
                                 {{ visit.property.name }}
                             </a>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <td class="px-6 py-4">
                             <time datetime="{{ visit.dateStart|date('Y-m-d h:i') }}">
                                 {{ visit.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
                             </time>
-                        </th>
+                        </td>
                         <td class="px-6 py-4">
                             <time datetime="{{ visit.dateEnd|date('Y-m-d h:i') }}">
                                 {{ visit.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}
@@ -105,7 +106,7 @@
             <h3 class="mb-4">Mes visites a assister :</h3>
             {% dump visitstodo %}
             {% if visitstodo %}
-            <table class="w-full text-sm text-left text-gray-500">
+            <table class="w-full text-sm text-left text-gray-500 table-fixed overflow-x-auto">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -130,11 +131,11 @@
                                class="text-gray-900 font-medium hover:text-gray-600">
                                 {{ visittodo.property.name }}
                             </a>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <td class="px-6 py-4">
                             <time datetime="{{ visittodo.dateStart|date('Y-m-d h:i') }}">
                                 {{ visittodo.dateStart|date('l jS \\o\\f F  \\a\\t g:i a') }}
                             </time>
-                        </th>
+                        </td>
                         <td class="px-6 py-4">
                             <time datetime="{{ visittodo.dateEnd|date('Y-m-d h:i') }}">
                                 {{ visittodo.dateEnd|date('l jS \\o\\f F  \\a\\t g:i a') }}

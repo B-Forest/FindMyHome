@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/visit')]
 class VisitController extends AbstractController
@@ -26,12 +27,17 @@ class VisitController extends AbstractController
 
     #[Route('/new', name: 'app_visit_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_OWNER')]
-    public function new(Request $request, VisitRepository $visitRepository): Response
+    public function new(Request $request, VisitRepository $visitRepository, ValidatorInterface $validator): Response
     {
         $user = $this->getUser();
         $visit = new Visit();
         $form = $this->createForm(VisitType::class, $visit);
         $form->handleRequest($request);
+        $errors = $validator->validate($visit);
+
+        if (count($errors) > 0) {
+            return new Response((string) $errors, 400);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $visitRepository->save($visit, true);

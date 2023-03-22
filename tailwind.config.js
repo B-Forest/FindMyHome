@@ -11,6 +11,7 @@ module.exports = {
         'main': '#2F52E0',
         'myblack' : '#1D1E18',
         'secondary': '#DBE9EE',
+        'valid': '#93E5AB',
       },
       fontFamily: {
           'lato': ['Lato', 'sans-serif'],

@@ -28,9 +28,9 @@
                 </div>
             {% endif %}
         </div>
-        <div class="grid grid-cols-4 mb-12">
+        <div class="grid grid-cols-1 lg:grid-cols-4 mb-12">
             {% if property.pictures|length > 0 %}
-                <div id="carrousel" class="col-span-3">
+                <div id="carrousel" class="col-span-3 mb-4">
                     <div id="container" class="flex items-center justify-center">
                         {% for picture in property.pictures %}
                             <img src="{{ asset(property_url ~ '/' ~ picture.url) }}" alt="picture"
@@ -41,7 +41,7 @@
                     <img src="{{ asset('picture/icons8-flèche-droite-90.png') }}" alt="Next" class="bouton" id="next">
                 </div>
             {% else %}
-                <div id="carrousel" class="col-span-3 bg-white">
+                <div id="carrousel" class="col-span-3 bg-white mb-4">
                     <div id="container" class="flex items-center justify-center">
                         <img src="{{ asset('uploads/property/nopicture.jpg') }}" alt="picture"
                              class="hidden w-[250] h-[250]">
@@ -49,11 +49,11 @@
                 </div>
             {% endif %}
             <div class="ml-16">
-                <h3>Superficie :</h3>
+                <h3 class="mb-4">Superficie :</h3>
                 <p>{{ property.surface }} m²</p>
-                <h3>Prix :</h3>
+                <h3 class="mb-4">Prix :</h3>
                 <p>{{ property.price }} €</p>
-                <h3>Mode de payement :</h3>
+                <h3 class="mb-4">Mode de payement :</h3>
                 <p>{{ property.payment.name }}</p>
             </div>
         </div>
@@ -63,13 +63,13 @@
                 <p>{{ property.description }}</p>
             </div>
             <div class="mb-6">
-                <h3>Adresse :</h3>
+                <h3 class="mb-4">Adresse :</h3>
                 <p>{{ property.halfAddress }}</p>
             </div>
         </div>
         {% if visits|length > 0 %}
             <div class="mb-8">
-                <h3>Futur Visites :</h3>
+                <h3 class="mb-4">Futur Visites :</h3>
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -102,8 +102,19 @@
                                     {% if visit.visitor %}
                                         <p>Il y a deja un visiteur</p>
                                     {% else %}
-                                        <a href="{{ path('app_visit_inscription',{'id' : visit.id}) }}"> Il n'y pas pas
-                                            de visisteur inscrivez vous !</a>
+                                        {% if app.user %}
+
+                                            {% if app.user.id != property.owner.id %}
+                                                <a href="{{ path('app_visit_inscription',{'id' : visit.id}) }}"> Il n'y
+                                                    pas
+                                                    de visiteur inscrivez vous !
+                                                </a>
+                                            {% else %}
+                                                <p>Vous êtes le propriétaire</p>
+                                            {% endif %}
+                                        {% else %}
+                                            <a href="{{ path('app_login') }}">Connectez vous pour vous inscrire</a>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>

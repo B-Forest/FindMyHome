@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Property;
+use App\Form\ProfileUpdateType;
 use App\Repository\FavoriteRepository;
 use App\Repository\PropertyRepository;
 use App\Repository\UserRepository;
 use App\Repository\VisitRepository;
+use App\Service\FileUploader;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +54,41 @@ class DefaultController extends AbstractController
             'visits' => $visitRepository->findFutureVisitOwner($user),
             'visitstodo' => $visitRepository->findFutureVisit($user),
             'favorite' => $favorite,
+        ]);
+    }
+
+    #[Route('/profile/{id}/edit', name: 'profile_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function profileEdit(int $id,
+                                Request $request,
+                                UserRepository $userRepository,
+                                FileUploader $fileUploader
+    ): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(ProfileUpdateType::class, $user);
+        $form->handleRequest($request);
+
+        if ($user->getId() !== $id) {
+            return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $fileUploader->setTargetDirectory($this->getParameter('pp_directory'));
+                $fileName = $fileUploader->upload($image);
+                $user->setProfilePicture($fileName);
+            }
+
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+        }
+
+        return $this->render('default/update.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }

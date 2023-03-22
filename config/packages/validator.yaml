@@ -1,3 +1,16 @@
+#App\Entity\Visit:
+#    properties:
+#        dateStart:
+#            GreaterThanOrEqual:
+#                value: today
+#                message: 'La date de départ doit être supérieure ou égale à la date du jour.'
+#
+#        dateEnd:
+#            GreaterThan:
+#                propertyPath: dateStart
+#                message: 'La date de fin doit être supérieure à la date de départ.'
+
+
 framework:
     validation:
         email_validation_mode: html5
@@ -6,8 +19,9 @@ framework:
         # For instance, basic validation constraints will be inferred from Doctrine's metadata.
         #auto_mapping:
         #    App\Entity\: []
-
 when@test:
     framework:
         validation:
             not_compromised_password: false
+
+
