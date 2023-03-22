@@ -7,8 +7,10 @@
         <div class="grid grid-cols-3 mb-8">
             <div>
                 <h2 class="capitalize">{{ user.fullName }}</h2>
-                <p class="pl-8">{{ user.email }}</p>
-                <a href="{{ path('profile_edit', {'id': app.user.id}) }}">Mettre a jour</a>
+                <p class="pl-8 mb-4">{{ user.email }}</p>
+                <div class="flex justify-center items-center w-36 text-white text-3xl bg-valid font-medium rounded-lg text-sm ml-8 px-5 py-2.5 text-center" >
+                    <a href="{{ path('profile_edit', {'id': app.user.id}) }}">Mettre a jour votre profile</a>
+                </div>
             </div>
             <div class="col-start-3">
                 <div class="flex justify-center items-center">
@@ -92,7 +94,6 @@
                                 Aucun visiteur
                             </p>
                             {% endif %}
-                            </p>
                         </td>
                     </tr>
                 {% endfor %}

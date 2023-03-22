@@ -74,12 +74,14 @@ class DefaultController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form->get('image')->getData();
+            $image = $form->get('profilePicture')->getData();
             if ($image) {
                 $fileUploader->setTargetDirectory($this->getParameter('pp_directory'));
                 $fileName = $fileUploader->upload($image);
                 $user->setProfilePicture($fileName);
             }
+
+
 
             $userRepository->save($user, true);
 

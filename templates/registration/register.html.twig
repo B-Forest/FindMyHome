@@ -4,23 +4,25 @@
 
 {% block body %}
     <section>
+        <div class="flex flex-col justify-center items-center">
     <h2 class="text-center">S'incrire</h2>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.firstName , {'attr': {'class': ' mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Votre Prénom'}},{'label_attr':'Votre Prénom'})}}
-        {{ form_row(registrationForm.lastName , {'attr': {'class': ' mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Votre Nom'}},{'label_attr':'Votre Nom'})}}
-        {{ form_row(registrationForm.phoneNumber , {'attr': {'class': ' mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Votre Numéro de Téléphone'}},{'label_attr':'Votre Numéro de Téléphone'})}}
-        {{ form_row(registrationForm.profilePicture , {'attr': {'class': ' mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Votre Photo de Profile'}},{'label_attr':'Votre Photo de Profile'})}}
-        {{ form_row(registrationForm.email , {'attr': {'class': ' mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Votre Email'}},{'label_attr':'Votre Email'})}}
-        {{ form_row(registrationForm.plainPassword , {'attr': {'class': ' mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Votre Mot de Passe'}},{'label_attr':'Mot de Passe'})}}
+        {{ form_row(registrationForm.firstName , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'John'}, 'label': 'Ton prénom'})}}
+        {{ form_row(registrationForm.lastName, {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Doe'}, 'label': 'Ton nom'})}}
+        {{ form_row(registrationForm.phoneNumber , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'0600000000'}, 'label': 'Ton numéro de téléphone'})}}
+        {{ form_row(registrationForm.profilePicture , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'}, 'label': 'Ta photo de profil'})}}
+        {{ form_row(registrationForm.email , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'John.doe@gmail.com'}, 'label': 'Ton email'})}}
+        {{ form_row(registrationForm.plainPassword , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Password'}, 'label': 'Ton mot de passe'})}}
         {{ form_row(registrationForm.agreeTerms)}}
 
         <div class="flex items-center justify-center">
             <button type="submit"
-                    class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">
-                S'inscrire'
+                    class="bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                S'inscrire
             </button>
         </div>
     {{ form_end(registrationForm) }}
+        </div>
     </section>
 {% endblock %}
