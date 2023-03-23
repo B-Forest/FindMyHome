@@ -28,11 +28,13 @@
                 </button>
             </div>
         </form>
-        <div>
-            <a href="{{ path('app_register') }}">Pas encore de compte ?</a>
-        </div>
-        <div>
-            <a href="#">Mot de passe oublié ?</a>
+        <div class="flex flex-col justify-center items-center">
+            <div>
+                <a href="{{ path('app_register') }}">Pas encore de compte ?</a>
+            </div>
+            <div>
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
         </div>
     </section>
 {% endblock %}
