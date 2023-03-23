@@ -6,7 +6,8 @@
     <section>
         <div class="flex justify-between">
             <h2>{{ property.name }}</h2>
-            {% if app.user and app.user.id != property.owner.id %}
+            {% if app.user %}
+            {% if app.user.id != property.owner.id %}
                 <div class="flex justify-center items-center">
                     <a href="{{ path('ajoutfavori',{'id':property.id}) }}">
                         <div class="flex justify-center items-center bg-gray-100 rounded-full h-14 w-14">
@@ -26,6 +27,10 @@
                         </svg>
                     </div>
                 </div>
+            {% endif %}
+            {% else %}
+                <a href="{{ path('app_login') }}"
+                   class="w-56 text-blue-500 block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-400 md:p-0">Connecter vous pour ajouter aux favoris</a>
             {% endif %}
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-4 mb-12">
@@ -54,7 +59,7 @@
                 <h3 class="mb-4">Prix :</h3>
                 <p>{{ property.price }} €</p>
                 <h3 class="mb-4">Mode de payement :</h3>
-                <p>{{ property.payment.name }}</p>
+                <p class="capitalize">{{ property.payment.name }}</p>
             </div>
         </div>
         <div class="mb-8">
