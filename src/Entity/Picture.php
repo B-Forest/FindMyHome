@@ -17,6 +17,7 @@ class Picture
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(name:"property_id", referencedColumnName:"id", onDelete:"CASCADE", )]
     private ?Property $property = null;
 
     public function getId(): ?int

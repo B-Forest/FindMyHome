@@ -86,5 +86,4 @@ class PropertyRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
 }

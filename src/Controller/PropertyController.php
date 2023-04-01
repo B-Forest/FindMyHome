@@ -6,6 +6,7 @@ use App\Entity\Favorite;
 use App\Entity\Property;
 use App\Entity\Picture;
 use App\Form\FavoriteType;
+use App\Form\FilterType;
 use App\Form\PropertyType;
 use App\Repository\FavoriteRepository;
 use App\Repository\PropertyRepository;
@@ -26,11 +27,12 @@ class PropertyController extends AbstractController
     {
         return $this->render('property/index.html.twig', [
             'properties' => $propertyRepository->findAll(),
+
         ]);
     }
 
     #[Route('/list', name: 'property_list', methods: ['GET'])]
-    public function list(PropertyRepository $propertyRepository): Response
+    public function list(PropertyRepository $propertyRepository, Request $request,): Response
     {
         return $this->render('property/list.html.twig', [
             'properties' => $propertyRepository->findAll(),
@@ -40,6 +42,7 @@ class PropertyController extends AbstractController
     #[Route('/list/location', name: 'property_location', methods: ['GET'])]
     public function listlocation(PropertyRepository $propertyRepository): Response
     {
+
         return $this->render('property/listlocation.html.twig', [
             'propertieslocation' => $propertyRepository->findLocation(),
         ]);
@@ -128,30 +131,44 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_property_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Property $property, PropertyRepository $propertyRepository): Response
+    public function edit(Request $request, Property $property, PropertyRepository $propertyRepository,EntityManagerInterface $entityManager,
+                         FileUploader $fileUploader): Response
     {
+        $user = $this->getUser();
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('pictures')->getData();
+            foreach ($images as $image) {
+                $fileUploader->setTargetDirectory($this->getParameter('property_directory'));
+                $fileName = $fileUploader->upload($image);
+                $picture = new Picture();
+                $picture->setUrl($fileName);
+                $entityManager->persist($picture);
+                $property->addPicture($picture);
+            }
+
             $propertyRepository->save($property, true);
 
-            return $this->redirectToRoute('app_property_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('profile', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('property/edit.html.twig', [
             'property' => $property,
-            'form' => $form,
+            "propertyForm" => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_property_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_property_delete', methods: ['POST','DELETE'])]
+    #[IsGranted('ROLE_OWNER')]
     public function delete(Request $request, Property $property, PropertyRepository $propertyRepository): Response
     {
+        $user = $this->getUser();
         if ($this->isCsrfTokenValid('delete'.$property->getId(), $request->request->get('_token'))) {
             $propertyRepository->remove($property, true);
         }
 
-        return $this->redirectToRoute('app_property_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('profile', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
     }
 }
