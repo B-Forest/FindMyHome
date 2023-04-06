@@ -2,9 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Property;
+
+use Doctrine\DBAL\Types\FloatType;
+use Doctrine\DBAL\Types\IntegerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,13 +31,52 @@ class FilterPropertyType extends AbstractType
                     'placeholder' => 'Code postal',
                 ],
             ])
+            ->add('minPrice', NumberType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prix min',
+                ],
+            ])
+            ->add('maxPrice', NumberType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Prix max',
+                ],
+            ])
+
+            ->add('minSurface', NumberType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Surface min',
+                ],
+            ])
+
+            ->add('maxSurface', NumberType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Surface max',
+                ],
+            ])
+
+            ->add('category',EntityType::class, [
+                'class' => 'App\Entity\Category',
+                'choice_label' => 'name',
+                'required' => false,
+                'label' => false,
+                'placeholder' => 'Catégorie',
+            ])
+            ->add('payment',EntityType::class, [
+                'class' => 'App\Entity\Payment',
+                'choice_label' => 'name',
+                'required' => false,
+                'label' => false,
+                'placeholder' => 'Type de bien',
+            ])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Property::class,
-        ]);
-    }
 }

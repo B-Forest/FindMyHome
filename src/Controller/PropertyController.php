@@ -33,21 +33,20 @@ class PropertyController extends AbstractController
         ]);
     }
 
-    #[Route('/list', name: 'property_list', methods: ['GET'])]
-    public function list(PropertyRepository $propertyRepository, Request $request, Property $property): Response
+    #[Route('/list', name: 'property_list', methods: ['GET', 'POST'])]
+    public function list(PropertyRepository $propertyRepository, Request $request): Response
     {
         $form = $this->createForm(FilterPropertyType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            dump($data);
             $properties = $propertyRepository->findByFilter($data);
-            return $this->render('property/list.html.twig', [
-                'properties' => $properties,
-                'filterForm' => $form,
-            ]);
-        }
+        } else (
+            $properties = $propertyRepository->findAll()
+        );
         return $this->render('property/list.html.twig', [
-            'properties' => $propertyRepository->findAll(),
+            'properties' => $properties,
             'filterForm' => $form,
         ]);
     }

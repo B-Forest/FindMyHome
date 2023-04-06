@@ -103,6 +103,36 @@ class PropertyRepository extends ServiceEntityRepository
                 ->setParameter(':name', '%'.$data['zipcode'].'%');
         }
 
+        if ($data['minPrice']) {
+            $qb->andWhere('property.price >= :minPrice')
+                ->setParameter(':minPrice', $data['minPrice']);
+        }
+
+        if ($data['maxPrice']) {
+            $qb->andWhere('property.price <= :maxPrice')
+                ->setParameter(':maxPrice', $data['maxPrice']);
+        }
+
+        if ($data['minSurface']) {
+            $qb->andWhere('property.surface >= :minSurface')
+                ->setParameter(':minSurface', $data['minSurface']);
+        }
+
+        if ($data['maxSurface']) {
+            $qb->andWhere('property.surface <= :maxSurface')
+                ->setParameter(':maxSurface', $data['maxSurface']);
+        }
+
+        if ($data['category']) {
+            $qb->andWhere('property.category = :category')
+                ->setParameter(':category', $data['category']);
+        }
+
+        if ($data['payment']) {
+            $qb->andWhere('property.payment = :payment')
+                ->setParameter(':payment', $data['payment']);
+        }
+
         return $qb->getQuery()->getResult();
     }
 }
