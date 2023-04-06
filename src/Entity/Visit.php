@@ -42,6 +42,7 @@ class Visit
 
     public function setDateStart(\DateTimeInterface $dateStart): self
     {
+        assert($dateStart > new \DateTime('now'), 'La date de début doit être supérieure à la date du jour.');
         $this->dateStart = $dateStart;
 
         return $this;
@@ -66,6 +67,7 @@ class Visit
 
     public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
+        assert($dateEnd > $this->dateStart, 'La date de fin doit être supérieure à la date de début.');
         $this->dateEnd = $dateEnd;
 
         return $this;

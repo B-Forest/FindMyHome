@@ -6,6 +6,7 @@ use App\Entity\Favorite;
 use App\Entity\Property;
 use App\Entity\Picture;
 use App\Form\FavoriteType;
+use App\Form\FilterPropertyType;
 use App\Form\FilterType;
 use App\Form\PropertyType;
 use App\Repository\FavoriteRepository;
@@ -14,6 +15,7 @@ use App\Repository\VisitRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,10 +34,21 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/list', name: 'property_list', methods: ['GET'])]
-    public function list(PropertyRepository $propertyRepository, Request $request,): Response
+    public function list(PropertyRepository $propertyRepository, Request $request, Property $property): Response
     {
+        $form = $this->createForm(FilterPropertyType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $properties = $propertyRepository->findByFilter($data);
+            return $this->render('property/list.html.twig', [
+                'properties' => $properties,
+                'filterForm' => $form,
+            ]);
+        }
         return $this->render('property/list.html.twig', [
             'properties' => $propertyRepository->findAll(),
+            'filterForm' => $form,
         ]);
     }
 
@@ -97,6 +110,7 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_property_show', methods: ['GET'])]
+    #[ParamConverter('property', class: Property::class)]
     public function show(Property $property, FavoriteRepository $favoriteRepository, VisitRepository $visit): Response
     {
         $user = $this->getUser();

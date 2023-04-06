@@ -86,4 +86,23 @@ class PropertyRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findByFilter($data): array
+    {
+        $qb = $this->createQueryBuilder('property');
+
+        $qb->addSelect('property');
+
+        if ($data['city']) {
+            $qb->andWhere('property.city LIKE :name')
+                ->setParameter(':name', '%'.$data['city'].'%');
+        }
+
+        if ($data['zipcode']) {
+            $qb->andWhere('property.zipcode LIKE :name')
+                ->setParameter(':name', '%'.$data['zipcode'].'%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
