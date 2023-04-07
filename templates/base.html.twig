@@ -48,14 +48,24 @@
                                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Vente</a>
                         </li>
                         {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="px-8 font-normal text-lg text-center">
+                                <a href="{{ path('admin_dashboard') }}"
+                                   class="text-blue-500 block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-400 md:p-0">
+                                    Admin
+                                </a>
+                            </li>
+                        {% else %}
                             <li class="px-8 font-normal text-lg text-center">
                                 <a href="{{ path('profile', {'id': app.user.id} ) }}"
                                    class="capitalize text-blue-500 block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-400 md:p-0">{{ app.user.fullName }}</a>
                             </li>
+                        {% endif %}
                             <li class="px-8 font-normal text-lg text-center">
                                 <a href="{{ path('app_logout') }}"
                                    class="text-blue-500 block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-400 md:p-0">Logout</a>
                             </li>
+
                         {% else %}
                             <li class="px-8 font-normal text-lg text-center">
                                 <a href="{{ path('app_login') }}"
