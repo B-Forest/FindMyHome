@@ -133,6 +133,16 @@ class PropertyRepository extends ServiceEntityRepository
                 ->setParameter(':payment', $data['payment']);
         }
 
+        if ($data['minRoom']) {
+            $qb->andWhere('property.Room >= :minRoom')
+                ->setParameter(':minRoom', $data['minRoom']);
+        }
+
+        if ($data['maxRoom']) {
+            $qb->andWhere('property.Room <= :maxRoom')
+                ->setParameter(':maxRoom', $data['maxRoom']);
+        }
+
         return $qb->getQuery()->getResult();
     }
 }

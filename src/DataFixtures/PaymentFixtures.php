@@ -10,23 +10,18 @@ class PaymentFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $journalier = new Payment();
-        $journalier->setName('journalier');
-        $this->addReference('payment-journalier', $journalier);
-        $manager->persist($journalier);
+        $short = new Payment();
+        $short->setName('Courte durée');
+        $this->addReference('payment-journalier', $short);
+        $manager->persist($short);
 
-        $hebdomadaire = new Payment();
-        $hebdomadaire->setName('hebdomadaire');
-        $this->addReference('payment-hebdomadaire', $hebdomadaire);
-        $manager->persist($hebdomadaire);
-
-        $mensuel = new Payment();
-        $mensuel->setName('mensuel');
-        $this->addReference('payment-mensuel', $mensuel);
-        $manager->persist($mensuel);
+        $long = new Payment();
+        $long->setName('Longue durée');
+        $this->addReference('payment-mensuel', $long);
+        $manager->persist($long);
 
         $achat = new Payment();
-        $achat->setName('achat');
+        $achat->setName('Achat');
         $this->addReference('payment-achat', $achat);
         $manager->persist($achat);
 

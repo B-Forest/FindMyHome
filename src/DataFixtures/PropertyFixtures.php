@@ -20,8 +20,9 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
         $firsthouse->setCity('Rennes');
         $firsthouse->setAddress('1 rue de la soif');
         $firsthouse->setZipcode('35000');
+        $firsthouse->setRoom(4);
         $firsthouse->setOwner($this->getReference('user-julick'));
-        $firsthouse->setCategory($this->getReference('category-t3'));
+        $firsthouse->setCategory($this->getReference('category-appartement'));
         $firsthouse->setPayment($this->getReference('payment-mensuel'));
         $manager->persist($firsthouse);
         $this->setReference('maison-1', $firsthouse);
@@ -34,8 +35,9 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
         $secondhouse->setCity('Rennes');
         $secondhouse->setAddress('2 rue de la soif');
         $secondhouse->setZipcode('35000');
+        $secondhouse->setRoom(5);
         $secondhouse->setOwner($this->getReference('user-michel'));
-        $secondhouse->setCategory($this->getReference('category-t4'));
+        $secondhouse->setCategory($this->getReference('category-maison'));
         $secondhouse->setPayment($this->getReference('payment-mensuel'));
         $manager->persist($secondhouse);
         $this->setReference('maison-2', $secondhouse);

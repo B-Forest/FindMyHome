@@ -58,6 +58,9 @@ class Property
     #[ORM\Column(length: 255)]
     private ?string $zipcode = null;
 
+    #[ORM\Column]
+    private ?int $Room = null;
+
     public function __construct()
     {
         $this->visits = new ArrayCollection();
@@ -285,5 +288,17 @@ class Property
     public function getFullAddress(): string
     {
         return $this->getAddress() . ' , ' .$this->getCity() . ' , ' . $this->getZipcode();
+    }
+
+    public function getRoom(): ?int
+    {
+        return $this->Room;
+    }
+
+    public function setRoom(int $Room): self
+    {
+        $this->Room = $Room;
+
+        return $this;
     }
 }

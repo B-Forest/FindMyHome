@@ -17,7 +17,10 @@
                 <p>{{ property.zipcode }}</p>
             </div>
             <p class="mb-3 font-normal text-gray-700">{{ property.price }} €</p>
-            <p class="mb-3 font-normal text-gray-700">{{ property.surface }} m²</p>
+            <div class='grid grid-cols-2'>
+                <p class="mb-3 font-normal text-gray-700">{{ property.surface }} m²</p>
+                <p class="mb-3 font-normal text-gray-700">{{ property.room }} pièces</p>
+            </div>
             <a href="{{ path('app_property_show',{'id' : property.id}) }}"
                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">
                 Voir en détail
