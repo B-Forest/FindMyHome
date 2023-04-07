@@ -1,0 +1,19 @@
+{{ form_start(filterForm, {'action': path('property_list')}) }}
+<div class='flex gap-4'>
+    <div class="grid grid-cols-5">
+        {{ form_row(filterForm.city , {'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.zipcode,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.minPrice,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.maxPrice,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.minSurface,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.maxSurface,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.minRoom,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.maxRoom,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.category,{'attr': {'class': 'rounded-lg w-52'}}) }}
+        {{ form_row(filterForm.payment,{'attr': {'class': 'rounded-lg w-52'}}) }}
+    </div>
+    <div class="flex justify-center items-center">
+        <button type="submit" class="bg-white border-2 border-gray-400 rounded-lg h-12 w-24">Rechercher</button>
+    </div>
+</div>
+{{ form_end(filterForm) }}

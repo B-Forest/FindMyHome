@@ -16,16 +16,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class FilterPropertyType extends AbstractType
 {
     const Rooms = [
-        1 => '1 pièce',
-        2 => '2 pièces',
-        3 => '3 pièces',
-        4 => '4 pièces',
-        5 => '5 pièces',
-        6 => '6 pièces',
-        7 => '7 pièces',
-        8 => '8 pièces',
-        9 => '9 pièces',
-        10 => '10 pièces et plus',
+        '1 pièce' => 1,
+        '2 pièces' => 2,
+        '3 pièces' => 3,
+        '4 pièces' => 4,
+        '5 pièces' => 5,
+        '6 pièces' => 6,
+        '7 pièces' => 7,
+        '8 pièces' => 8,
+        '9 pièces' => 9,
+        '10 pièces et plus' => 10,
     ];
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -92,15 +92,16 @@ class FilterPropertyType extends AbstractType
             ->add('minRoom', ChoiceType::class, [
                 'required' => false,
                 'label' => false,
-                'placeholder' => 'Nombre de pièces min',
+                'placeholder' => 'Pièces min',
                 'choices' => self::Rooms,
             ])
             ->add('maxRoom', ChoiceType::class, [
                 'required' => false,
                 'label' => false,
-                'placeholder' => 'Nombre de pièces max',
+                'placeholder' => 'Pièces max',
                 'choices' => self::Rooms,
             ])
+
         ;
     }
 
