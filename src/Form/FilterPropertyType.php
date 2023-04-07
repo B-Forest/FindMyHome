@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class FilterPropertyType extends AbstractType
 {
     const Rooms = [
+        '0 pièce' => 0,
         '1 pièce' => 1,
         '2 pièces' => 2,
         '3 pièces' => 3,

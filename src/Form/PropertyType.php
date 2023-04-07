@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints\File;
 class PropertyType extends AbstractType
 {
     const Rooms = [
+        '0 pièce' => 0,
         '1 pièce' => 1,
         '2 pièces' => 2,
         '3 pièces' => 3,
