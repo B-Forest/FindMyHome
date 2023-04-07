@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Payment;
-use App\Form\PaymentType;
+use App\Form\Admin\PaymentType;
 use App\Repository\PaymentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

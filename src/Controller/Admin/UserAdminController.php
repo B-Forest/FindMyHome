@@ -3,20 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\Admin\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/user/admin')]
+#[Route('/admin/user')]
 class UserAdminController extends AbstractController
 {
     #[Route('/', name: 'app_user_admin_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user_admin/index.html.twig', [
+        return $this->render('/admin/user_admin/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class UserAdminController extends AbstractController
             return $this->redirectToRoute('app_user_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user_admin/new.html.twig', [
+        return $this->renderForm('/admin/user_admin/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class UserAdminController extends AbstractController
     #[Route('/{id}', name: 'app_user_admin_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('user_admin/show.html.twig', [
+        return $this->render('/admin/user_admin/show.html.twig', [
             'user' => $user,
         ]);
     }
@@ -60,7 +60,7 @@ class UserAdminController extends AbstractController
             return $this->redirectToRoute('app_user_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user_admin/edit.html.twig', [
+        return $this->renderForm('/admin/user_admin/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

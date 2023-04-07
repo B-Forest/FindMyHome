@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Admin;
 
 use App\Entity\Property;
 use Symfony\Component\Form\AbstractType;
@@ -23,7 +23,6 @@ class Property1Type extends AbstractType
             ->add('owner')
             ->add('category')
             ->add('payment')
-            ->add('favorites')
         ;
     }
 

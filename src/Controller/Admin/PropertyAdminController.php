@@ -3,20 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Property;
-use App\Form\Property1Type;
+use App\Form\Admin\Property1Type;
 use App\Repository\PropertyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/property/admin')]
+#[Route('/admin/property')]
 class PropertyAdminController extends AbstractController
 {
     #[Route('/', name: 'app_property_admin_index', methods: ['GET'])]
     public function index(PropertyRepository $propertyRepository): Response
     {
-        return $this->render('property_admin/index.html.twig', [
+        return $this->render('/admin/property_admin/index.html.twig', [
             'properties' => $propertyRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class PropertyAdminController extends AbstractController
             return $this->redirectToRoute('app_property_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('property_admin/new.html.twig', [
+        return $this->renderForm('/admin/property_admin/new.html.twig', [
             'property' => $property,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class PropertyAdminController extends AbstractController
     #[Route('/{id}', name: 'app_property_admin_show', methods: ['GET'])]
     public function show(Property $property): Response
     {
-        return $this->render('property_admin/show.html.twig', [
+        return $this->render('/admin/property_admin/show.html.twig', [
             'property' => $property,
         ]);
     }
@@ -60,7 +60,7 @@ class PropertyAdminController extends AbstractController
             return $this->redirectToRoute('app_property_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('property_admin/edit.html.twig', [
+        return $this->renderForm('/admin/property_admin/edit.html.twig', [
             'property' => $property,
             'form' => $form,
         ]);

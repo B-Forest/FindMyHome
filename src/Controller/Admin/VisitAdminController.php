@@ -3,20 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Visit;
-use App\Form\Visit1Type;
+use App\Form\Admin\Visit1Type;
 use App\Repository\VisitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/visit/admin')]
+#[Route('/admin/visit')]
 class VisitAdminController extends AbstractController
 {
     #[Route('/', name: 'app_visit_admin_index', methods: ['GET'])]
     public function index(VisitRepository $visitRepository): Response
     {
-        return $this->render('visit_admin/index.html.twig', [
+        return $this->render('/admin/visit_admin/index.html.twig', [
             'visits' => $visitRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class VisitAdminController extends AbstractController
             return $this->redirectToRoute('app_visit_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('visit_admin/new.html.twig', [
+        return $this->renderForm('/admin/visit_admin/new.html.twig', [
             'visit' => $visit,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class VisitAdminController extends AbstractController
     #[Route('/{id}', name: 'app_visit_admin_show', methods: ['GET'])]
     public function show(Visit $visit): Response
     {
-        return $this->render('visit_admin/show.html.twig', [
+        return $this->render('/admin/visit_admin/show.html.twig', [
             'visit' => $visit,
         ]);
     }
@@ -60,7 +60,7 @@ class VisitAdminController extends AbstractController
             return $this->redirectToRoute('app_visit_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('visit_admin/edit.html.twig', [
+        return $this->renderForm('/admin/visit_admin/edit.html.twig', [
             'visit' => $visit,
             'form' => $form,
         ]);

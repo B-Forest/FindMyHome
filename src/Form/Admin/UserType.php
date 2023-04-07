@@ -1,28 +1,30 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Admin;
 
-use App\Entity\Visit;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Visit1Type extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateStart')
-            ->add('dateEnd')
-            ->add('property')
-            ->add('visitor')
+            ->add('email')
+            ->add('password')
+            ->add('lastName')
+            ->add('firstName')
+            ->add('phoneNumber')
+            ->add('profilePicture')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Visit::class,
+            'data_class' => User::class,
         ]);
     }
 }

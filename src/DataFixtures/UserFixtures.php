@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
         $julick->setFirstName('Julick');
         $julick->setLastName('Mellah');
         $julick->setPhoneNumber('0600000000');
-        $julick->setProfilePicture('https://imgs.search.brave.com/uNKtgLgRKteWDQaxSZvsNHsc7XOlUps0o0jB881KPSw/rs:fit:847:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC55/dWxUT0x1S2phRlFE/SWNhS3BaTUFRSGFF/SiZwaWQ9QXBp');
+        $julick->setProfilePicture('placeholderpp.png');
         $julick->setRoles(['ROLE_USER']);
         $manager->persist($julick);
         $this->setReference('user-julick', $julick);
@@ -36,7 +36,7 @@ class UserFixtures extends Fixture
         $theau->setFirstName('Theau');
         $theau->setLastName('Dup');
         $theau->setPhoneNumber('0600000001');
-        $theau->setProfilePicture('https://imgs.search.brave.com/uNKtgLgRKteWDQaxSZvsNHsc7XOlUps0o0jB881KPSw/rs:fit:847:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC55/dWxUT0x1S2phRlFE/SWNhS3BaTUFRSGFF/SiZwaWQ9QXBp');
+        $theau->setProfilePicture('placeholderpp.png');
         $theau->setRoles(['ROLE_USER']);
         $manager->persist($theau);
         $this->setReference('user-theau', $theau);
@@ -47,7 +47,7 @@ class UserFixtures extends Fixture
         $benjamin->setFirstName('Benjamin');
         $benjamin->setLastName('Forest');
         $benjamin->setPhoneNumber('0600000002');
-        $benjamin->setProfilePicture('https://imgs.search.brave.com/uNKtgLgRKteWDQaxSZvsNHsc7XOlUps0o0jB881KPSw/rs:fit:847:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC55/dWxUT0x1S2phRlFE/SWNhS3BaTUFRSGFF/SiZwaWQ9QXBp');
+        $benjamin->setProfilePicture('placeholderpp.png');
         $benjamin->setRoles(['ROLE_ADMIN']);
         $manager->persist($benjamin);
         $this->setReference('user-benjamin', $benjamin);
@@ -58,7 +58,7 @@ class UserFixtures extends Fixture
         $michel->setFirstName('Michel');
         $michel->setLastName('Truc');
         $michel->setPhoneNumber('0600000003');
-        $michel->setProfilePicture('https://imgs.search.brave.com/uNKtgLgRKteWDQaxSZvsNHsc7XOlUps0o0jB881KPSw/rs:fit:847:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC55/dWxUT0x1S2phRlFE/SWNhS3BaTUFRSGFF/SiZwaWQ9QXBp');
+        $michel->setProfilePicture('placeholderpp.png');
         $michel->setRoles(['ROLE_USER']);
         $manager->persist($michel);
         $this->setReference('user-michel', $michel);
