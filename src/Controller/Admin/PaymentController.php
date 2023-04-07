@@ -16,7 +16,7 @@ class PaymentController extends AbstractController
     #[Route('/', name: 'app_payment_index', methods: ['GET'])]
     public function index(PaymentRepository $paymentRepository): Response
     {
-        return $this->render('payment/index.html.twig', [
+        return $this->render('admin/payment/index.html.twig', [
             'payments' => $paymentRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class PaymentController extends AbstractController
             return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('payment/new.html.twig', [
+        return $this->renderForm('admin/payment/new.html.twig', [
             'payment' => $payment,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class PaymentController extends AbstractController
     #[Route('/{id}', name: 'app_payment_show', methods: ['GET'])]
     public function show(Payment $payment): Response
     {
-        return $this->render('payment/show.html.twig', [
+        return $this->render('admin/payment/show.html.twig', [
             'payment' => $payment,
         ]);
     }
@@ -60,7 +60,7 @@ class PaymentController extends AbstractController
             return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('payment/edit.html.twig', [
+        return $this->renderForm('admin/payment/edit.html.twig', [
             'payment' => $payment,
             'form' => $form,
         ]);
