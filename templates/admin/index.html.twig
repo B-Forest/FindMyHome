@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Edit Category{% endblock %}
 
 {% block body %}
     <section>
         <h2>Bienvenue dans l'interface admin</h2>
-        <p class="mb-8">Vous pouvez gérer les durées disponibles , les catégories, les utilisateurs les biens et les
+        <p class="mb-8">Vous pouvez gérer les durées disponibles, les catégories, les utilisateurs les biens et les
             visites </p>
         <div class="flex justify-center items-center">
             <a href="{{ path('app_payment_index') }}">
