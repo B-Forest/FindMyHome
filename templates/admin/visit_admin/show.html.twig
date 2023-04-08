@@ -3,28 +3,55 @@
 {% block title %}Visit{% endblock %}
 
 {% block body %}
-    <h1>Visit</h1>
+    <section>
+        <h2>Détail</h2>
+        <div class="flex flex-col justify-center items-center">
+            <table class="mb-4">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ visit.id }}</td>
+                </tr>
+                <tr>
+                    <th>DateStart</th>
+                    <td>{{ visit.dateStart ? visit.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>DateEnd</th>
+                    <td>{{ visit.dateEnd ? visit.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Owner</th>
+                    <td>{{ visit.property.owner.fullName }}</td>
+                </tr>
+                <tr>
+                    <th>Visiteur</th>
+                    {% if visit.visitor is not null %}
+                        <td>{{ visit.visitor.fullName }}</td>
+                    {% else %}
+                        <td>Aucun visiteur</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ visit.property.city }}, {{ visit.property.zipcode }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ visit.property.address }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ visit.property.name }}</td>
+                </tr>
+                </tbody>
+            </table>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ visit.id }}</td>
-            </tr>
-            <tr>
-                <th>DateStart</th>
-                <td>{{ visit.dateStart ? visit.dateStart|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateEnd</th>
-                <td>{{ visit.dateEnd ? visit.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_visit_admin_index') }}">back to list</a>
-
-    <a href="{{ path('app_visit_admin_edit', {'id': visit.id}) }}">edit</a>
-
-    {{ include('admin/visit_admin/_delete_form.html.twig') }}
+            <div class="flex flex-row">
+            <a href="{{ path('app_visit_admin_edit', {'id': visit.id}) }}" class="text-white bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Edit</a>
+            {{ include('admin/visit_admin/_delete_form.html.twig') }}
+            </div>
+        </div>
+        <a href="{{ path('app_visit_admin_index') }}" class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Retour</a>
+    </section>
 {% endblock %}

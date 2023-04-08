@@ -76,12 +76,18 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_admin_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('profilePicture')->getData();
+            if ($image) {
+                $fileUploader->setTargetDirectory($this->getParameter('pp_directory'));
+                $fileName = $fileUploader->upload($image);
+                $user->setProfilePicture($fileName);
+            }
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_user_admin_index', [], Response::HTTP_SEE_OTHER);

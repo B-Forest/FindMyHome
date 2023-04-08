@@ -2,9 +2,9 @@
 {{ form_start(form) }}
        {{ form_row(form.name , {'attr': {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Titre de votre propriété'}},{'label_attr':'Titre de votre propriéte'}) }}
 
-<div class="flex justify-center items-center">
-    <button type="submit" class="text-white bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">{{ button_label|default('Créer') }}
-    </button>
-</div>
+    <div class="flex justify-center items-center">
+        <button type="submit" class="bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">{{ button_label|default('Créer') }}
+        </button>
+    </div>
 {{ form_end(form) }}
 </div>

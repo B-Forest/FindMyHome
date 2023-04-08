@@ -4,8 +4,11 @@
 
 {% block body %}
     <section>
-        <h2>Edit User</h2>
-
+        <h2>Edit Utilisateur</h2>
+        <div class="flex justify-center items-center">
+        <img src="{{ asset('uploads/pp/' ~ user.profilePicture) }}" alt="Photo de profile"
+             class="rounded-full w-24 h-24 inline-grid">
+        </div>
         {{ include('admin/user_admin/_form.html.twig', {'button_label': 'Update'}) }}
 
         <div class="flex flex-row">

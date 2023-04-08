@@ -30,6 +30,7 @@ class Visit1Type extends AbstractType
                     'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Seconde',
                 ],
             ])
+
             ->add('visitor',EntityType::class,[
             'class' => 'App\Entity\User',
             'choice_label' => 'email',
