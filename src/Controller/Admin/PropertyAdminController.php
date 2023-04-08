@@ -2,9 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Picture;
 use App\Entity\Property;
 use App\Form\Admin\Property1Type;
 use App\Repository\PropertyRepository;
+use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,12 +52,25 @@ class PropertyAdminController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_property_admin_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Property $property, PropertyRepository $propertyRepository): Response
+    public function edit(Request $request,
+                         Property $property,
+                         EntityManagerInterface $entityManager,
+                         PropertyRepository $propertyRepository,
+                         FileUploader $fileUploader): Response
     {
         $form = $this->createForm(Property1Type::class, $property);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('pictures')->getData();
+            foreach ($images as $image) {
+                $fileUploader->setTargetDirectory($this->getParameter('property_directory'));
+                $fileName = $fileUploader->upload($image);
+                $picture = new Picture();
+                $picture->setUrl($fileName);
+                $entityManager->persist($picture);
+                $property->addPicture($picture);
+            }
             $propertyRepository->save($property, true);
 
             return $this->redirectToRoute('app_property_admin_index', [], Response::HTTP_SEE_OTHER);

@@ -3,48 +3,97 @@
 {% block title %}Property index{% endblock %}
 
 {% block body %}
-    <h1>Property index</h1>
+    <section>
+        <h2>Property index</h2>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Id
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nom
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Description
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Prix
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Surface
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Ville
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Code postal
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Adresse
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Chambres
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Show</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for property in properties %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ property.id }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ property.name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.price }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.surface }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.city }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.zipcode }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.address }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ property.room }}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ path('app_property_admin_edit', {'id': property.id}) }}" class="font-medium text-green-600 dark:text-green-500 hover:underline">Edit</a>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ path('app_property_admin_show', {'id': property.id}) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Show</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Surface</th>
-                <th>City</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>Room</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for property in properties %}
-            <tr>
-                <td>{{ property.id }}</td>
-                <td>{{ property.name }}</td>
-                <td>{{ property.description }}</td>
-                <td>{{ property.price }}</td>
-                <td>{{ property.surface }}</td>
-                <td>{{ property.city }}</td>
-                <td>{{ property.address }}</td>
-                <td>{{ property.zipcode }}</td>
-                <td>{{ property.Room }}</td>
-                <td>
-                    <a href="{{ path('app_property_admin_show', {'id': property.id}) }}">show</a>
-                    <a href="{{ path('app_property_admin_edit', {'id': property.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_property_admin_new') }}" class="text-white bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Nouveau</a>
-    <a href="{{ path('admin_dashboard') }}" class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Retour</a>
+        <a href="{{ path('app_property_admin_new') }}"
+           class="text-white bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Nouveau</a>
+        <a href="{{ path('admin_dashboard') }}"
+           class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Retour</a>
+    </section>
 {% endblock %}

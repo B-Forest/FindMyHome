@@ -3,9 +3,11 @@
 {% block title %}New Payment{% endblock %}
 
 {% block body %}
-    <h1>Create new Payment</h1>
+    <section>
+    <h2>Créer un nouveau type de transaction</h2>
 
     {{ include('admin/payment/_form.html.twig') }}
 
-    <a href="{{ path('app_payment_index') }}">back to list</a>
+    <a href="{{ path('app_payment_index') }}"class="text-white bg-main font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Retour</a>
+    </section>
 {% endblock %}

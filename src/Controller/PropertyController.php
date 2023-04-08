@@ -144,7 +144,10 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_property_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Property $property, PropertyRepository $propertyRepository,EntityManagerInterface $entityManager,
+    public function edit(Request $request,
+                         Property $property,
+                         PropertyRepository $propertyRepository,
+                         EntityManagerInterface $entityManager,
                          FileUploader $fileUploader): Response
     {
         $user = $this->getUser();

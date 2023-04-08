@@ -3,6 +3,7 @@
 {% block title %}Property{% endblock %}
 
 {% block body %}
+    <section>
     <h1>Property</h1>
 
     <table class="table">
@@ -43,12 +44,29 @@
                 <th>Room</th>
                 <td>{{ property.Room }}</td>
             </tr>
+        <tr>
+            <th>Catégorie</th>
+            <td>{{ property.category.name }}</td>
+        </tr>
+            <tr>
+            <th>Payment</th>
+            <td>{{ property.payment.name }}</td>
+        </tr>
+
         </tbody>
     </table>
+        <h4 class="text-2xl">Photos :</h4>
+        {% if property.pictures %}
+        {% for picture in property.pictures %}
+            <img src="{{ asset('uploads/property/' ~ picture.url) }}" alt="test" width="200">
+            {{ include('admin/picture/_delete_form.html.twig') }}
+        {% endfor %}
+        {% endif %}
 
     <a href="{{ path('app_property_admin_index') }}">back to list</a>
 
     <a href="{{ path('app_property_admin_edit', {'id': property.id}) }}">edit</a>
 
     {{ include('admin/property_admin/_delete_form.html.twig') }}
+    </section>
 {% endblock %}
