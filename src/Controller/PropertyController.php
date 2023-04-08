@@ -152,6 +152,7 @@ class PropertyController extends AbstractController
     {
         $user = $this->getUser();
         $form = $this->createForm(PropertyType::class, $property);
+        dump($property);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

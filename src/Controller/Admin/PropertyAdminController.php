@@ -59,6 +59,7 @@ class PropertyAdminController extends AbstractController
                          FileUploader $fileUploader): Response
     {
         $form = $this->createForm(Property1Type::class, $property);
+        dump($property);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +77,7 @@ class PropertyAdminController extends AbstractController
             return $this->redirectToRoute('app_property_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('/admin/property_admin/edit.html.twig', [
+        return $this->render('/admin/property_admin/edit.html.twig', [
             'property' => $property,
             'form' => $form,
         ]);

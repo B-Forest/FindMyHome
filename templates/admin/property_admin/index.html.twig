@@ -10,19 +10,10 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Id
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Nom
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Description
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Prix
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Surface
+                        Propriétaire
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Ville
@@ -31,10 +22,10 @@
                         Code postal
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Adresse
+                        Catégorie
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Chambres
+                        Type de transaction
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Show</span>
@@ -48,19 +39,10 @@
                 {% for property in properties %}
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ property.id }}
+                            {{ property.name }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ property.name }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ property.description }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ property.price }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ property.surface }}
+                            {{ property.owner.fullName }}
                         </td>
                         <td class="px-6 py-4">
                             {{ property.city }}
@@ -69,10 +51,10 @@
                             {{ property.zipcode }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ property.address }}
+                            {{ property.category.name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ property.room }}
+                            {{ property.payment.name }}
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ path('app_property_admin_edit', {'id': property.id}) }}" class="font-medium text-green-600 dark:text-green-500 hover:underline">Edit</a>
