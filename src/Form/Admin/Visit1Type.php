@@ -34,7 +34,12 @@ class Visit1Type extends AbstractType
             ->add('visitor',EntityType::class,[
             'class' => 'App\Entity\User',
             'choice_label' => 'email',
-        ])
+            'placeholder' => 'Choisir un visiteur',
+            ])
+            ->add('property',EntityType::class,[
+                'class' => 'App\Entity\Property',
+                'choice_label' => 'name',
+            ])
         ;
     }
 

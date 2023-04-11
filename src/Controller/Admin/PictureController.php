@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Picture;
-use App\Form\Picture1Type;
 use App\Repository\PictureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
