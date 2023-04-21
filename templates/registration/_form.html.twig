@@ -1,11 +1,14 @@
 {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.firstName , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'John'}, 'label': 'Ton prénom'})}}
-        {{ form_row(registrationForm.lastName, {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Doe'}, 'label': 'Ton nom'})}}
-        {{ form_row(registrationForm.phoneNumber , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'0600000000'}, 'label': 'Ton numéro de téléphone'})}}
-        {{ form_row(registrationForm.profilePicture , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'}, 'label': 'Ta photo de profil'})}}
-        {{ form_row(registrationForm.email , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'John.doe@gmail.com'}, 'label': 'Ton email'})}}
-        {{ form_row(registrationForm.plainPassword , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Password'}, 'label': 'Ton mot de passe'})}}
-        {{ form_row(registrationForm.agreeTerms , {'attr' : {'class':'mb-4'}, 'label': 'J\'accepte les conditions d\'utilisation'})}}
+<div class="flex justify-center items-center mb-4">
+    <img src="{{ asset('uploads/pp/placeholderpp.png') }}" alt="logo" class="w-36 h-36 rounded-md" id="pp">
+</div>
+{{ form_row(registrationForm.profilePicture , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5'}, 'label': 'Ta photo de profil', 'id': 'registration_form_profilePicture'}) }}
+        {{ form_row(registrationForm.firstName , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'John'}, 'label': 'Ton prénom'}) }}
+        {{ form_row(registrationForm.lastName, {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Doe'}, 'label': 'Ton nom'}) }}
+        {{ form_row(registrationForm.phoneNumber , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'0600000000'}, 'label': 'Ton numéro de téléphone'}) }}
+        {{ form_row(registrationForm.email , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'John.doe@gmail.com'}, 'label': 'Ton email'}) }}
+        {{ form_row(registrationForm.plainPassword , {'attr' : {'class': 'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5','placeholder':'Password'}, 'label': 'Ton mot de passe'}) }}
+        {{ form_row(registrationForm.agreeTerms , {'attr' : {'class':'mb-4'}, 'label': 'J\'accepte les conditions d\'utilisation'}) }}
 
 <div class="flex items-center justify-center">
     <button type="submit"
@@ -14,3 +17,21 @@
     </button>
 </div>
 {{ form_end(registrationForm) }}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        const image = document.querySelector('#pp');
+        const fileInput = document.querySelector('#registration_form_profilePicture');
+
+        fileInput.addEventListener('change', function (e) {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function () {
+                    image.setAttribute('src', this.result);
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+{% endblock %}

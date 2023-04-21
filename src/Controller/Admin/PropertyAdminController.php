@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Picture;
 use App\Entity\Property;
+use App\Form\Admin\FilterPropertyAdminType;
 use App\Form\Admin\Property1Type;
 use App\Repository\PropertyRepository;
 use App\Service\FileUploader;
@@ -16,11 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/property')]
 class PropertyAdminController extends AbstractController
 {
-    #[Route('/', name: 'app_property_admin_index', methods: ['GET'])]
-    public function index(PropertyRepository $propertyRepository): Response
+    #[Route('/', name: 'app_property_admin_index', methods: ['GET', 'POST'])]
+    public function index(PropertyRepository $propertyRepository, Request $request): Response
     {
+        $form = $this->createForm(FilterPropertyAdminType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            dump($data);
+            $properties = $propertyRepository->findByFilter($data);
+        } else (
+            $properties = $propertyRepository->findAll()
+        );
         return $this->render('/admin/property_admin/index.html.twig', [
-            'properties' => $propertyRepository->findAll(),
+            'properties' => $properties,
+            'filterForm' => $form,
         ]);
     }
 

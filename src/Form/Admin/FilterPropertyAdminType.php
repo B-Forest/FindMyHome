@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Form;
-
+namespace App\Form\Admin;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-class FilterPropertyType extends AbstractType
+class FilterPropertyAdminType extends AbstractType
 {
     const Rooms = [
         '0 pièce' => 0,
@@ -28,7 +27,15 @@ class FilterPropertyType extends AbstractType
     ];
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
+            ->add('name', TextType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Nom du bien',
+                ],
+            ])
             ->add('city', TextType::class, [
                 'required' => false,
                 'label' => false,
@@ -100,8 +107,13 @@ class FilterPropertyType extends AbstractType
                 'placeholder' => 'Pièces max',
                 'choices' => self::Rooms,
             ])
-
         ;
     }
 
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            // Configure your form options here
+        ]);
+    }
 }

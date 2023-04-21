@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Favorite;
 use App\Entity\User;
+use App\Form\Admin\FilterUserAdminType;
 use App\Form\Admin\UserType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -18,11 +19,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/user')]
 class UserAdminController extends AbstractController
 {
-    #[Route('/', name: 'app_user_admin_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    #[Route('/', name: 'app_user_admin_index', methods: ['GET','POST'])]
+    public function index(UserRepository $userRepository, Request $request): Response
     {
+        $form = $this->createForm(FilterUserAdminType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            dump($data);
+            $users = $userRepository->findByFilter($data);
+        } else (
+            $users = $userRepository->findAll()
+        );
         return $this->render('/admin/user_admin/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
+            'filterForm' => $form,
         ]);
     }
 
