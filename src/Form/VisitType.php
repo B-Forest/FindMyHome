@@ -27,17 +27,19 @@ class VisitType extends AbstractType
         $user = $this->token->getToken()?->getUser();
         $builder
             ->add('dateStart', DateTimeType::class,  [
-                'date_widget' => 'single_text',
-                'placeholder' => [
-                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
-                    'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Seconde',
+                'html5' => true,
+                'widget' => 'single_text',
+                'attr'  => [
+                    'min' => (new \DateTime('now'))->format('Y-m-d H:i'),
+                    'max' => (new \DateTime('+1 year'))->format('Y-m-d H:i'),
                 ],
             ])
             ->add('dateEnd', DateTimeType::class,  [
-                'date_widget' => 'single_text',
-                'placeholder' => [
-                    'year' => 'Année', 'month' => 'Moi', 'day' => 'Jour',
-                    'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Seconde',
+                'html5' => true,
+                'widget' => 'single_text',
+                'attr'  => [
+                    'min' => (new \DateTime('now'))->format('Y-m-d H:i'),
+                    'max' => (new \DateTime('+1 year'))->format('Y-m-d H:i'),
                 ],
             ])
             ->add('property',EntityType::class, [
