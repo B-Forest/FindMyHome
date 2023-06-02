@@ -142,10 +142,6 @@ class PropertyRepository extends ServiceEntityRepository
             $qb->andWhere('property.Room <= :maxRoom')
                 ->setParameter(':maxRoom', $data['maxRoom']);
         }
-        if($data['name']){
-            $qb->andWhere('property.name LIKE :name')
-                ->setParameter(':name', '%'.$data['name'].'%');
-        }
 
         return $qb->getQuery()->getResult();
     }
