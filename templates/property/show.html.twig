@@ -132,14 +132,13 @@
 
                                             {% if app.user.id != property.owner.id %}
                                                 <a href="{{ path('app_visit_inscription',{'id' : visit.id}) }}"> Il n'y
-                                                    pas
-                                                    de visiteur inscrivez vous !
+                                                    pas de visiteur inscrivez vous !
                                                 </a>
                                             {% else %}
                                                 <p>Vous êtes le propriétaire</p>
                                             {% endif %}
                                         {% else %}
-                                            <a href="{{ path('app_login') }}">Connectez vous pour vous inscrire</a>
+                                            <a href="{{ path('app_login') }}" class="">Connectez vous pour vous inscrire</a>
                                         {% endif %}
                                     {% endif %}
                                 </td>

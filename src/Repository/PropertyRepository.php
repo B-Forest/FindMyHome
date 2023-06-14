@@ -100,7 +100,7 @@ class PropertyRepository extends ServiceEntityRepository
 
         if ($data['zipcode']) {
             $qb->andWhere('property.zipcode LIKE :name')
-                ->setParameter(':name', '%'.$data['zipcode'].'%');
+                ->setParameter(':name', $data['zipcode'].'%');
         }
 
         if ($data['minPrice']) {
