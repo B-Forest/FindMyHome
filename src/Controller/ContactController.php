@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,6 @@ class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
     public function index(Request $request,
-                          ContactRepository $contactRepository,
                           EntityManagerInterface $entityManager,
                           MailerInterface $mailer,
     ): Response
@@ -30,23 +28,24 @@ class ContactController extends AbstractController
         }
 
         $form = $this->createForm(ContactType::class, $contact);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+
             $contact = $form->getData();
 
             $entityManager->persist($contact);
             $entityManager->flush();
 
             $email = (new Email())
-                ->from('hello@example.com')
-                ->to('you@example.com')
+                ->from($contact->getEmail())
+                ->to('admin@gmail.com')
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')
                 //->priority(Email::PRIORITY_HIGH)
-                ->subject('Time for Symfony Mailer!')
-                ->text('Sending emails is fun again!')
-                ->html('<p>See Twig integration for better HTML integration!</p>');
+                ->subject($contact->getSubject())
+                ->html($contact->getText());
 
             $mailer->send($email);
 
@@ -56,7 +55,7 @@ class ContactController extends AbstractController
 
         return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }
