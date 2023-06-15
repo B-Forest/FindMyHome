@@ -9,7 +9,8 @@
     {{ form_row(propertyForm.room , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Le nombre de pièces'}}) }}
     {{ form_row(propertyForm.category , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Catégorie de votre Propriété'}}) }}
     {{ form_row(propertyForm.payment , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Type de payment pour votre Propriété'}}) }}
-    {{ form_row(propertyForm.pictures , {'attr': {'class':'w-80 mb-4 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Photos    de votre Propriété'}}) }}
+    {{ form_row(propertyForm.pictures , {'attr': {'class':'w-80 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5','placeholder':'Photos    de votre Propriété'}}) }}
+    <p class="mb-4 text-sm">(appuyer sur Ctrl pour sélectionner plusieurs photos)</p>
 
     <div class="flex justify-center items-center">
     <button class="text-white bg-valid font-medium rounded-lg text-sm px-16 py-6 text-center mr-2 mb-2">{{ button_label|default('Enregistrer ma propriété') }}</button>

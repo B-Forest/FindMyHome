@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -30,21 +31,36 @@ class PropertyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('price')
-            ->add('surface')
-            ->add('city')
-            ->add('zipCode')
-            ->add('address')
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la propriété'
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Description'
+            ])
+            ->add('price', TextType::class, [
+                'label' => 'Prix'
+            ])
+            ->add('surface', TextType::class, [
+                'label' => 'Surface'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('zipCode', TextType::class, [
+                'label' => 'Code postal'
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse'
+            ])
             ->add('category', EntityType::class, [
                 'class' => 'App\Entity\Category',
                 'choice_label' => 'name',
                 'multiple' => false,
+                'label' => 'Catégorie'
             ])
             ->add('room', ChoiceType::class, [
                 'required' => true,
-                'label' => false,
+                'label' => 'Pièces',
                 'placeholder' => 'Nombre de pièces',
                 'choices' => self::Rooms,
             ])
@@ -52,12 +68,14 @@ class PropertyType extends AbstractType
                 'class' => 'App\Entity\Payment',
                 'choice_label' => 'name',
                 'multiple' => false,
+                'label' => 'Durée'
             ])
             ->add('pictures', FileType::class, [
                 'multiple' => true,
                 'attr' => ['accept' => 'image/*'],
                 'mapped' => false,
                 'required' => false,
+                'label' => 'Photos'
             ])
         ;
     }
