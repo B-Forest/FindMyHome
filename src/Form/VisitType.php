@@ -33,6 +33,7 @@ class VisitType extends AbstractType
                     'min' => (new \DateTime('now'))->format('Y-m-d H:i'),
                     'max' => (new \DateTime('+1 year'))->format('Y-m-d H:i'),
                 ],
+                'label' => 'Date et Horaires de début'
             ])
             ->add('dateEnd', DateTimeType::class,  [
                 'html5' => true,
@@ -41,6 +42,7 @@ class VisitType extends AbstractType
                     'min' => (new \DateTime('now'))->format('Y-m-d H:i'),
                     'max' => (new \DateTime('+1 year'))->format('Y-m-d H:i'),
                 ],
+                'label' => 'Date et Horaires de fin'
             ])
             ->add('property',EntityType::class, [
                 'class' => Property::class,
@@ -52,6 +54,7 @@ class VisitType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
+                'label' => 'Proriété'
             ]);
     }
 

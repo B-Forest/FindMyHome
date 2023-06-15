@@ -14,8 +14,13 @@
             </div>
             <div class="col-start-3">
                 <div class="flex justify-center items-center">
+                    {% if user.profilePicture %}
                     <img src="{{ asset('uploads/pp/' ~ user.profilePicture) }}" alt="Photo de profile"
                          class="rounded-full w-48 h-48 inline-grid">
+                    {%else%}
+                    <img src="{{ asset('uploads/pp/placeholderpp.png') }}" alt="Photo de profile"
+                         class="rounded-full w-48 h-48 inline-grid">
+                    {% endif %}
                 </div>
             </div>
         </div>
