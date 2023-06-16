@@ -3,12 +3,20 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <section>
+    <section class="flex flex-col justify-center items-center">
         <h2>Inscription</h2>
-        <p>Vous voulez vous incrire a la visite pour : {{visit.property.name}}</p>
+        <p>Vous voulez vous inscrire à la visite pour :</p>
+        <h3 class="mb-4">{{visit.property.name}}</h3>
+        <div class="mb-4">
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">S'inscrire</button>
+        </div>
+        <div class="flex items-center justify-center">
+        <button type="submit"
+                class="bg-valid font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            S'inscrire
+        </button>
+        </div>
         {{ form_end(form) }}
     </section>
 

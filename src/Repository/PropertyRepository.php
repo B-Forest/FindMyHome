@@ -151,6 +151,8 @@ class PropertyRepository extends ServiceEntityRepository
                 ->setParameter(':maxRoom', $data['maxRoom']);
         }
 
+        $qb->orderBy('property.id','DESC');
+
         return $qb->getQuery()->getResult();
     }
 }
