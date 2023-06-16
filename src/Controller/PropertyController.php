@@ -43,7 +43,7 @@ class PropertyController extends AbstractController
             dump($data);
             $properties = $propertyRepository->findByFilter($data);
         } else (
-            $properties = $propertyRepository->findAll()
+            $properties = $propertyRepository->findNewProperty()
         );
         return $this->render('property/list.html.twig', [
             'properties' => $properties,

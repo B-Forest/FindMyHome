@@ -87,6 +87,14 @@ class PropertyRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public  function  findNewProperty(): array
+    {
+        $qb =$this->createQueryBuilder('property');
+        $qb->orderBy('property.id','DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findByFilter($data): array
     {
         $qb = $this->createQueryBuilder('property');
